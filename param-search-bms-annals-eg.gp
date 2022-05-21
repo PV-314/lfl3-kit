@@ -1,4 +1,4 @@
-\\ \r lfl3\param-search-eg3.gp
+\\ \r lfl3\param-search-bms-annals-eg.gp
 
 read("lfl3\\lfl-utils-alpha3Variable.gp");
 
