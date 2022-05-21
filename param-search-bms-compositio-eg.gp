@@ -1,4 +1,4 @@
-\\ \r lfl3\param-search-eg4.gp
+\\ \r lfl3\param-search-bms-compositio-eg.gp
 
 read("lfl3\\lfl-utils-alpha1Variable.gp");
 
