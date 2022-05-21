@@ -1,4 +1,4 @@
-\\ \r lfl3\param-search-eg2.gp
+\\ \r lfl3\param-search-mignotte-eg21
 
 read("lfl3\\lfl-utils-alpha1Variable.gp");
 
