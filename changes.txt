@@ -1,6 +1,7 @@
 2022-11-10 (yyyy-mm-dd format)
 ==========
 gNumer fixed in alpha1_check_params() function in lfl-utils-alpha1Variable.gp
+and alpha3_check_params() function in lfl-utils-alpha3Variable.gp
 incorrect "2*" removed
 
 isComplex not correctly passed between functions in lfl-utils-alpha1Variable.gp
