@@ -2,14 +2,10 @@
 
 read("lfl3\\lfl-utils-general.gp");
 
-\\ the code assumes that alpha_i's and their logs are all positive real numbers
-\\ due to use of Corollary 2 of Laurent 2008 in the degenerate case below
-
 \\ assume that \alpha_1 is the variable \alpha_i (i.e., \alpha_2 and \alpha_3 are fixed numbers)
-\\ based on lfl-utils-alpha2Variable.gp
 
 \\ uses:
-\\ can be used for second example
+\\ can be used for mignotte-eg2
 
 \\ 4 Jan 2022
 alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,bigL,m,rho,chi,nUB,lamUB1,lamUB0,dbg=0)={
