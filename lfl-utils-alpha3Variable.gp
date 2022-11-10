@@ -2,16 +2,22 @@
 
 read("lfl3\\lfl-utils-general.gp");
 
-\\ the code assumes that alpha_i's and their logs are all positive real numbers
-\\ due to use of Corollary 2 of Laurent 2008 in the degenerate case below
-
 \\ assume that \alpha_3 is the variable \alpha_i (i.e., \alpha_1 and \alpha_2 are fixed numbers)
 
 \\ uses:
-\\ can be used for first example and the Fibonacci perfect powers linear form
+\\ be used for mignotte-eg1 and the Fibonacci perfect powers linear form
 
 \\ 11 Dec 2021
 alpha3_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,bigL,m,rho,chi,nUB,lamUB1,lamUB0,dbg=0)={
+	local(d1,d2);
+	
+	d1=1;
+	d2=1;
+	alpha1_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,d1,d2,logXLB,nLB,bigL,m,rho,chi,nUB,lamUB1,lamUB0,dbg);
+}
+
+\\ 29 June 2022
+alpha3_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,d1,d2,logXLB,nLB,bigL,m,rho,chi,nUB,lamUB1,lamUB0,dbg=0)={
 	my(a,aP,bigK,bigR,bigR1,bigR2,bigR3,bigS,bigS1,bigS2,bigS3,bigT,bigT1,bigT2,bigT3,c1,c2,c3,chiV,chiVSqr,cM,eqn42,eqn42LHS,eqn42RHS,g,isComplex,logBUB,logLambdaLB,rt,two13,vSqr);
 
 	if(type(al3)!="t_POL",
@@ -102,7 +108,7 @@ alpha3_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA
 		printf("log |Lambda|>%9.6e*logX\n\n",polcoef(logLambdaLB,1));
 	);
 
-	logBUB=get_logBPrime_UB(bigK,bigR,bigS,bigT,b1,b2,b3,logXLB,nUB,dbg);
+	logBUB=get_logBPrime_UB(bigK,bigR,bigS,bigT,b1,b2,b3,d1,d2,logXLB,nUB,dbg);
 	if(dbg!=0,
 		printf("log(b')<%9.6f\n",logBUB);
 	);
@@ -115,7 +121,7 @@ alpha3_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA
 
 	gDenom=12*bigR*bigS*bigT/logX/logX;
 	gDenom=subst(gDenom,logX,logXLB)*logX*logX;
-	gNumer=2*bigK*bigK*bigL;
+	gNumer=bigK*bigK*bigL;
 	gNumer=polcoef(gNumer,2,logX)*logX*logX;
 	g=1/4-gNumer/gDenom;
 	if(dbg!=0,
