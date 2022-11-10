@@ -1,0 +1,18 @@
+2022-11-10 (yyyy-mm-dd format)
+==========
+gNumer fixed in alpha1_check_params() function in lfl-utils-alpha1Variable.gp
+incorrect "2*" removed
+
+isComplex not correctly passed between functions in lfl-utils-alpha1Variable.gp
+causing incorrect degenerate case results in some cases
+
+added new functions:
+alpha1_check_params_with_d1d2() in lfl-utils-alpha1Variable.gp
+alpha3_check_params_with_d1d2() in lfl-utils-alpha3Variable.gp
+useful for problems like the linear forms in logs for Catalan's conjecture,
+where d_1 and d_2 in our "kit" manuscript can be large
+
+added new function
+check_bounds() in lfl-utils-general.gp
+to make user programs easier (updated examples to follow)
+
