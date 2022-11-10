@@ -6,7 +6,7 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 
 	if(type(al1)!="t_POL",
 		if(dbg!=0,
-			print("swapping al1 and al2 to try to make al1 a polynomial");
+			print("in get_matveev_ubnd(): swapping al1 and al2 to try to make al1 a polynomial");
 		);
 		t=al1;
 		al1=al2;
@@ -26,7 +26,7 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 	);
 	if(type(al1)!="t_POL",
 		if(dbg!=0,
-			print("swapping al1 and al3 to try to make al1 a polynomial");
+			print("in get_matveev_ubnd(): swapping al1 and al3 to try to make al1 a polynomial");
 		);
 		t=al1;
 		al1=al3;
@@ -45,20 +45,20 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 		b3=t;
 	);
 	if(type(al1)!="t_POL",
-		print("ERROR: type(al1)=",type(al1)," must be t_POL");
+		print("ERROR in get_matveev_ubnd(): type(al1)=",type(al1)," must be t_POL");
 		return([]);
 	);
 	if(type(al2)!="t_INT" && type(al2)!="t_FRAC" && type(al2)!="t_REAL" && type(al2)!="t_COMPLEX",
-		print("ERROR: type(al2)=",type(al2)," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
+		print("ERROR in get_matveev_ubnd(): type(al2)=",type(al2)," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
 		return([]);
 	);
 	if(type(al3)!="t_INT" && type(al3)!="t_FRAC" && type(al3)!="t_REAL" && type(al3)!="t_COMPLEX",
-		print("ERROR: type(al3)=",type(al3)," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
+		print("ERROR in get_matveev_ubnd(): type(al3)=",type(al3)," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
 		return([]);
 	);
 
 	if(dbg!=0,
-		print("bigD*hgtA1-absLogA1=",bigD*hgtA1-absLogA1);
+		print("in get_matveev_ubnd(): bigD*hgtA1-absLogA1=",bigD*hgtA1-absLogA1);
 	);
 	if(bigD*hgtA1-absLogA1!=0,
 		rts=polrootsreal(bigD*hgtA1-absLogA1);
@@ -105,7 +105,7 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 		actB3=t;
 	);
 	if(dbg!=0,
-		print("actB1=",actB1,", actB2=",actB2,", actB3=",actB3);
+		print("in get_matveev_ubnd(): actB1=",actB1,", actB2=",actB2,", actB3=",actB3);
 		\\print("b1-b2*bigA2/bigA1=",actB1-actB2*bigA2/bigA1);
 	);
 	
@@ -133,19 +133,22 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 	bigBCnst=subst(bigB,n,nLB)/nLB;
 	bigB=bigBCnst*n;
 	if(dbg!=0,
-		print("bigB=",bigB);
+		print("in get_matveev_ubnd(): bigB=",bigB);
 	);
 	
 	c1=5*16^5/6/chi*exp(3.0)*(7+2*chi)*(3*exp(1)/2)^chi*(26.25+log(bigD*bigD*log(exp(1)*bigD)));
 	lamLB=-c1*bigD*bigD*bigA1*bigA2*bigA3*(log(1.5*exp(1.0)*bigD*log(exp(1)*bigD))+log(bigBCnst)+logN);
 	if(dbg!=0,
-		print("lamLB=",lamLB);
+		print("in get_matveev_ubnd(): lamLB=",lamLB);
 	);
 
 	\\ for solve n=a+b*(log n)^h
 	a=(polcoef(lamLB,0,logN)-lamUB0)/lamUB1;
 	a=subst(a,logX,logXLB);
 	b=polcoef(lamLB,1,logN)/lamUB1;
+	if(dbg!=0,
+		print("in get_matveev_ubnd(): a=",a,", b=",b,", polcoef(lamLB,1,logN)=",polcoef(lamLB,1,logN),", lamUB1=",lamUB1);
+	);
 	if(poldegree(numerator(b),logX)>poldegree(denominator(b),logX),
 		print("BAD: numerator of b has larger degree than denominator. b=",b);
 	);
@@ -154,9 +157,56 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 	h=1;
 	nUB=get_solnUB(a,b,h,dbg);
 	if(dbg!=0,
-		printf("nUB=%12.6e\n",nUB);
+		printf("in get_matveev_ubnd(): nUB=%12.6e\n\n",nUB);
 	);
 	return(nUB);
+}
+
+\\ pull out common code for alpha1Variable and alpha3Variable cases
+\\ 6 July 2022
+get_eqn42(a1,a2,a3,bigK,bigL,bigR,bigS,bigT,d,rho,logBUB,nUB,logXLB,dbg=0)={
+	my(eqn42,eqn42LHS,eqn42Rem,eqn42RHS,eqn42X0,eqn42X1,gDenom,gNumer);
+	
+	\\ with K_0=2(K-1):
+	eqn42LHS=(bigK*bigL/2+bigL/4+bigL/8/bigK-2*bigK/3/bigL-1)*log(rho);
+	\\ with K_0=K-1, rather than K_0=2(K-1)
+	\\eqn42LHS=(bigK*bigL-bigK-bigK/3/bigL)*log(rho);
+
+	gDenom=12*bigR*bigS*bigT/logX/logX;
+	gDenom=subst(gDenom,logX,logXLB)*logX*logX;
+	gNumer=bigK*bigK*bigL;
+	gNumer=polcoef(gNumer,2,logX)*logX*logX;
+	g=1/4-gNumer/gDenom;
+	if(dbg!=0,
+		printf("g=%8.6f\n",g);
+	);
+	
+	\\ first the (cD+1)*log(N) term
+	eqn42RHS=(d+1)*log(polcoef(bigK,1)*polcoef(bigK,1)*bigL)+(d+1)*log(logXLB)/logXLB*logX;
+	\\ next the gL(a1*R+a2*S+a3*T) term
+	eqn42RHS=eqn42RHS+g*bigL*(a1*bigR+a2*bigS+a3*bigT);
+	\\ lastly the D(K-1)*log(b) term
+	eqn42RHS=eqn42RHS+d*(bigK-1)*logBUB;
+	eqn42RHS=subst(eqn42RHS,logN,log(nUB));
+	eqn42=eqn42LHS-eqn42RHS;
+	eqn42X1=pollead(polcoef(eqn42,1))*logX;
+	if(dbg!=0,
+		printf("before simplifying: deg=%4d, eqn42=%s\n",poldegree(eqn42),eqn42);
+		print("pollead(polcoef(eqn42,0))=",pollead(polcoef(eqn42,0)));
+		print("subst(eqn42-eqn42X1,logX,logXLB)=",subst(eqn42-eqn42X1,logX,logXLB));
+	);
+	eqn42X0=pollead(polcoef(eqn42,0));
+	eqn42Rem=max(0, pollead(subst(eqn42-eqn42X1-eqn42X0,logX,logXLB)));
+	eqn42=eqn42X1+eqn42X0+eqn42Rem;
+	if(dbg!=0,
+		printf("eqn42LHS=%s\n",eqn42LHS);
+		printf("eqn42RHS D(K-1)*log(b) term=%s\n",d*(bigK-1)*logBUB);
+		printf("eqn42RHS gL(a1*R+a2*S+a3*T) term=%s\n",g*bigL*(a1*bigR+a2*bigS+a3*bigT));
+		printf("eqn42RHS (cD+1)*log(N) term=%s\n",(d+1)*log(polcoef(bigK,1)*polcoef(bigK,1)*bigL)+(d+1)*log(logXLB)/logXLB*logX);
+		printf("eqn42RHS=%s\n",eqn42RHS);
+		printf("eqn42LHS-eqn42RHS=%s\n",eqn42);
+	);
+	return(eqn42);
 }
 
 \\ to save the same duplicated code
@@ -188,7 +238,7 @@ update_minNUB(val,bigL,m,rho,chi,minNUB,dbg=0)={
 			if(nDegenUB[2]<nDegenUB[1],
 				minB="b3";
 			);
-			printf("L=%4d, m=%8.4f, rho=%8.4f, chi=%6.4f, K=%12.3f*logX, nonDegen log|Lambda|>%9.6e*logX, nonDegenNUB=%9.6e, degenNUB1=%9.6e, degenNUB2=%9.6e, degenNUB3=%9.6e, nUB=%9.6e, transB-%s\n",bigL,m,rho,chi,bigK,-bigK*bigL*log(rho),nNonDegenUB,nDegenUB[1],nDegenUB[2],nDegenUB[3],nUB,minB);
+			printf("L=%4d, m=%8.4f, rho=%8.4f, chi=%6.4f, K=%12.3f*logX, nonDegen log|Lambda|>%9.6e*logX, nonDegenNUB=%10.6e, degenNUB1=%10.6e, degenNUB2=%10.6e, degenNUB3=%10.6e, nUB=%10.6e, transB-%s\n",bigL,m,rho,chi,bigK,-bigK*bigL*log(rho),nNonDegenUB,nDegenUB[1],nDegenUB[2],nDegenUB[3],nUB,minB);
 		);
 	);
 	return(localMinNUB);
@@ -343,8 +393,8 @@ get_lflRealCnst(bPLB,d)={
 \\ =b1*log(a1^u2)-b3*log(a2^u3*a3^u2)
 \\
 \\ if we eliminate b3, then
-\\ u3*b1*log(a1)+u3*b2*log(a2)-u3*b3*log(a3)=u3*b1*log(a1)+u3*b2*log(a2)+u1*b1*log(a3)
-\\ =b1*log(a1^u3*a3^u1)-b2*log(a2^(-u3))
+\\ u3*b1*log(a1)+u3*b2*log(a2)-u3*b3*log(a3)=u3*b1*log(a1)+u3*b2*log(a2)+u2*b2*log(a3)
+\\ =b1*log(a1^u3)-b2*log(a2^(-u3)*a3^(-u2))
 \\
 \\ we will always return [log(A_1), log(A_2)]
 \\ such that b_i*log(alpha_1)-b_j*log(alpha_2) with i<j
@@ -403,16 +453,15 @@ get_A1A2_from_b1(d,absLogA1,hgtA1,absLogA2,hgtA2,absLogA3,hgtA3,logXLB,u1UB,u2UB
 		logA2_0=get_logA(hgtNewA2_0,logNewA2_0,logXLB,d,dbg);
 	);
 	if(type(u2UB)=="t_POL" && type(u3UB)!="t_POL",
-		\\ linear form is: b1*log(a1^u3*a3^u1)-b2*log(a2^(-u3))
+		\\ linear form is: b1*log(a1^u3)-b2*log(a2^(-u3)*a3^(-u2))
+
 		if(dbg!=0,
-			print("get_A1A2_from_b1(): considering u_1=0 and eliminating b_3");
+			print("get_a1a2_from_b1(): considering u_1=0 and eliminating b_3");
 		);
-		hgtNewA1_0=u3UB*hgtA1+u1UB*hgtA3;
-		logNewA1_0=u3UB*absLogA1+u1UB*absLogA3;
-		logA1_0=get_logA(hgtNewA1_0,logNewA1_0,logXLB,d,dbg);
-		hgtNewA2_0=u3UB*hgtA2;
-		logNewA2_0=u3UB*absLogA2;
-		logA2_0=get_logA(hgtNewA2_0,logNewA2_0,logXLB,d,dbg);
+		hgtNewA1_0=u3UB*hgtA1;
+		logNewA1_0=u3UB*absLogA1;
+		hgtNewA2_0=u3UB*hgtA2+u2UB*hgtA3;
+		logNewA2_0=u3UB*absLogA2+u2UB*absLogA3;
 	);
 	if(type(u2UB)=="t_POL" && type(u3UB)=="t_POL",
 		print("ERROR in get_A1A2_from_b1(): u2=",u2UB," and u3=",u3UB," are both polynomials");
@@ -610,9 +659,9 @@ get_logA(hgtNew,logNew,logXLB,d,dbg=0)={
 			aDeg=max(poldegree(hgtNew,logX),poldegree(logNew,logX));
 			actHgtNew=actHgtNew*(logX/logXLB)^aDeg;
 			actLogNew=actLogNew*(logX/logXLB)^aDeg;
-			\\if(dbg!=0,
-			\\	print("in get_logA(): hgtNew=",actHgtNew,", logNew=",actLogNew,", aDeg=",aDeg);
-			\\);
+			if(dbg!=0,
+				print("in get_logA(): hgtNew=",actHgtNew,", logNew=",actLogNew,", aDeg=",aDeg);
+			);
 			logA=max(polcoef(actHgtNew,aDeg,logX),polcoef(actLowNew,aDeg,logX))*logX^aDeg;
 		);
 	);
@@ -738,7 +787,8 @@ get_degen_nUB(aiArray,d,nLB,lamUB0,lamUB1,lamMul,logXLB,isComplex,dbg=0)={
 		lflCnst=get_lflComplexCnst(absBPLB,d);
 	);
 
-	lambdaLB=lflCnst*d*d*d*d*logA1*logA2; \\ log |lamMul*Lambda|>lambdaLB*(log(b')+0.38,m/D,1/D)^2
+	\\ log |lamMul*Lambda|>lambdaLB*(log(b')+0.38,m/D,1/D)^2
+	lambdaLB=lflCnst*d*d*d*d*logA1*logA2;
 	if(poldegree(lambdaLB)==1,
 		lambdaLB=subst(lambdaLB,logX,logXLB)/logXLB*logX;
 	);
@@ -760,6 +810,7 @@ get_degen_nUB(aiArray,d,nLB,lamUB0,lamUB1,lamMul,logXLB,isComplex,dbg=0)={
 		printf("in get_degen_nUB(): lflCnst=%9.6f\n",lflCnst);
 		printf("in get_degen_nUB(): lamMul=%9.6f\n",lamMul);
 		printf("in get_degen_nUB(): lambdaLB=%9.6f*logX\n",polcoef(lambdaLB,1,logX));
+		printf("in get_degen_nUB(): recall |u_i*Lambda|>lambdaLB*(log(b')+0.38,m/D,1/D)^2\n");
 		if(!isComplex,
 			printf("in get_degen_nUB(): %s*n+%9.6f>log |u_i*Lambda|>-%9.6f*logX*(log(b')+0.38)^2=-%9.6f*logX*(log(n)%9.6f)^2\n",lamUB1,lamUB0+log(lamMul),polcoef(lambdaLB,1,logX),polcoef(lambdaLB,1,logX),bPCnstUB);
 		);
@@ -807,15 +858,16 @@ get_degen_nUB(aiArray,d,nLB,lamUB0,lamUB1,lamMul,logXLB,isComplex,dbg=0)={
 \\ we use the definition of b and Lemma 3.4(a) to bound log(b) from above here
 \\ assuming that K=c*log(x)
 \\ 21 Nov 2021
-get_logBPrime_UB(bigK,bigR,bigS,bigT,b1,b2,b3,logXLB,nUB,dbg=0)={
+get_logBPrime_UB(bigK,bigR,bigS,bigT,b1,b2,b3,d1,d2,logXLB,nUB,dbg=0)={
 	my(logB1,logB2,logBUB);
 	
 	\\ here we break the expression for b (defined in the notation section)
-	\\ into three parts: 1) B1=b3*eta0; 2) B2=b3*zeta0; 3) the factorial part
+	\\ into three parts: 1) B1=b3'*eta0=(b3/d1)*eta0; 2) B2=b3''*zeta0=(b3/d2)*zeta0;
+	\\ 3) the factorial part
 	\\ also note that despite the name, it is not actually a log of anything yet
 	\\ (but that does happen at the very end of handling logB1 here. Same with logB2)
-	logB1=internal_get_logB1(bigR,bigT,b1,b3,logXLB,nUB,dbg);
-	logB2=internal_get_logB2(bigS,bigT,b2,b3,logXLB,nUB,dbg);
+	logB1=internal_get_logB1(bigR,bigT,b1,b3,d1,logXLB,nUB,dbg);
+	logB2=internal_get_logB2(bigS,bigT,b2,b3,d2,logXLB,nUB,dbg);
 
 	logBUB=logB1+logB2;
 	logBUB=logBUB-2*(log(polcoef(bigK,1))+logLogX-3/2);
@@ -824,26 +876,27 @@ get_logBPrime_UB(bigK,bigR,bigS,bigT,b1,b2,b3,logXLB,nUB,dbg=0)={
 
 \\ here we break the expression for b (defined in the notation section)
 \\ into three parts:
-\\ 1) B1=b3*eta0;
-\\ 2) B2=b3*zeta0;
+\\ 1) B1=b3p*eta0=(b3/d1)*eta0;
+\\ 2) B2=b3pp*zeta0=(b3/d2)*zeta0;
 \\ 3) the factorial part
 \\ also note that despite the name, it is not actually a log of anything yet
 \\ (but that does happen at the very end of handling logB1 here. Same with logB2)
 \\ 15 Dec 2021
-get_logB1(bigK,bigR,bigT,b1,b3,logXLB,nUB,dbg=0)={
+get_logB1(bigK,bigR,bigT,b1,b3,d1,logXLB,nUB,dbg=0)={
 	my(logB1);
 	
-	logB1=internal_get_logB1(bigR,bigT,b1,b3,logXLB,nUB,dbg);
+	logB1=internal_get_logB1(bigR,bigT,b1,b3,d1,logXLB,nUB,dbg);
 	logB1=logB1-(log(polcoef(bigK,1))+logLogX-3/2);
 	return(logB1);
 }
 
 \\ for b3'*eta_0 term in expression for b (equation (3.5) on 3 March 2022)
+\\ here b3'=b3/d1
 \\ 15 Dec 2021
-internal_get_logB1(bigR,bigT,b1,b3,logXLB,nUB,dbg=0)={
+internal_get_logB1(bigR,bigT,b1,b3,d1,logXLB,nUB,dbg=0)={
 	my(logB1,logB1a,logB1b,logB1c,logB1d);
 
-	logB1=((bigR-1)*b3+(bigT-1)*b1)/2;
+	logB1=((bigR-1)*b3+(bigT-1)*b1)/2/d1;
 	logB1a=polcoef(polcoef(logB1,1,n),1,logX);
 	if(logB1a<0,
 		printf("ERROR: in internal_get_logB1(), logB1 has negative lead coefficient: %s\n",logB1);
@@ -881,26 +934,26 @@ internal_get_logB1(bigR,bigT,b1,b3,logXLB,nUB,dbg=0)={
 
 \\ here we break the expression for b (defined in the notation section)
 \\ into three parts:
-\\ 1) B1=b3*eta0;
-\\ 2) B2=b3*zeta0;
+\\ 1) B1=b3p*eta0=(b3/d1)*eta0;
+\\ 2) B2=b3pp*zeta0=(b3/d2)*zeta0;
 \\ 3) the factorial part
 \\ also note that despite the name, it is not actually a log of anything yet
 \\ (but that does happen at the very end of handling logB1 here. Same with logB2)
 \\ 15 Dec 2021
-get_logB2(bigM,bigS,bigT,b2,b3,logXLB,nUB,dbg=0)={
+get_logB2(bigM,bigS,bigT,b2,b3,d2,logXLB,nUB,dbg=0)={
 	my(logB2);
 	
-	logB2=internal_get_logB2(bigS,bigT,b2,b3,logXLB,nUB,dbg);
+	logB2=internal_get_logB2(bigS,bigT,b2,b3,d2,logXLB,nUB,dbg);
 	logB2=logB2-(log(polcoef(bigM,1))+logLogX-3/2);
 	return(logB2);
 }
 
 \\ for b3''*zeta_0 term in expression for b (equation (3.5) on 3 March 2022)
 \\ 15 Dec 2021
-internal_get_logB2(bigS,bigT,b2,b3,logXLB,nUB,dbg=0)={
+internal_get_logB2(bigS,bigT,b2,b3,d2,logXLB,nUB,dbg=0)={
 	my(logB2,logB2a,logB2b,logB2c,logB2d);
 	
-	logB2=((bigS-1)*b3+(bigT-1)*b2)/2;
+	logB2=((bigS-1)*b3+(bigT-1)*b2)/2/d2;
 	logB2a=polcoef(polcoef(logB2,1,n),1,logX);
 	if(logB2a<0,
 		printf("ERROR: logB2 has negative lead coefficient: %s\n",logB2);
@@ -933,4 +986,38 @@ internal_get_logB2(bigS,bigT,b2,b3,logXLB,nUB,dbg=0)={
 		printf("actual b3''*zeta_0 value=%s\n",logB2);
 	);
 	return(logB2);
+}
+
+\\ 0 means bad, 1 means good
+\\ 2 July 2022
+check_bounds(bigLLB,bigLUB,mLB,mUB,rhoLB,rhoUB,chiLB,chiUB)={
+	if(bigLLB<5,
+		printf("ERROR: bigLLB=%9.6f must be at least 5\n",bigLLB);
+		return(0);
+	);
+	if(mUB-mLB<0,
+		printf("ERROR: mLB=%9.6f must be at most mUB=9.6f\n",mLB,mUB);
+		return(0);
+	);
+	if(mLB<1,
+		printf("ERROR: mLB=%9.6f must be at least 1\n",mLB);
+		return(0);
+	);
+	if(rhoUB<rhoLB<0,
+		printf("ERROR: rhoLB=%9.6f must be at most rhoUB=9.6f\n",rhoLB,rhoUB);
+		return(0);
+	);
+	if(rhoLB<1,
+		printf("ERROR: rhoLB=%9.6f must be at least 2\n",rhoLB);
+		return(0);
+	);
+	if(chiUB-chiLB<0,
+		printf("ERROR: chiLB=%9.6f must be at most chiUB=9.6f\n",chiLB,chiUB);
+		return(0);
+	);
+	if(chiLB<0.001,
+		printf("ERROR: chiLB=%9.6f must be positve\n",chiLB);
+		return(0);
+	);
+	return(1);
 }
