@@ -13,7 +13,16 @@ read("lfl3\\lfl-utils-general.gp");
 
 \\ 4 Jan 2022
 alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,bigL,m,rho,chi,nUB,lamUB1,lamUB0,dbg=0)={
-	my(a,aP,bigK,bigR,bigR1,bigR2,bigR3,bigS,bigS1,bigS2,bigS3,bigT,bigT1,bigT2,bigT3,c1,c2,c3,chiV,chiVSqr,cM,eqn42LHS,eqn42RHS,f,g,logBUB,logLambdaLB,rt,two13,vSqr);
+	local(d1,d2);
+	
+	d1=1;
+	d2=1;
+	alpha1_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,d1,d2,logXLB,nLB,bigL,m,rho,chi,nUB,lamUB1,lamUB0,dbg);
+}
+
+\\ 29 June 2022
+alpha1_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,d1,d2,logXLB,nLB,bigL,m,rho,chi,nUB,lamUB1,lamUB0,dbg=0)={
+	my(a,aP,bigK,bigR,bigR1,bigR2,bigR3,bigS,bigS1,bigS2,bigS3,bigT,bigT1,bigT2,bigT3,c1,c2,c3,chiV,chiVSqr,cM,eqn42LHS,eqn42RHS,f,g,isComplex,logBUB,logLambdaLB,rt,two13,vSqr);
 
 	if(type(al1)!="t_POL",
 		print("ERROR: type(al1)=",type(al1)," must be t_POL");
@@ -32,6 +41,10 @@ alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA
 	a=min(a2,a3); \\ the assumption here is that a1 will be c*logX and logX large, so a2 or a3, the constant alphas, must be smaller
 	\\print("a1=",a1,", a3=",a3,", a=",a);
 	aP=max(a2,a3); \\ aPrime=second largest
+	if(dbg!=0,
+		print("a=",a);
+		print("aPrime=",aP);
+	);
 	
 	two13=1.2599210498948731647672106072782283506; \\ 2^(1/3) to save recalculation every time
 	c1=two13;
@@ -79,7 +92,7 @@ alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA
 	bigK=bigL*m*a1*a2*a3;
 	bigK=(polcoef(bigK,1)+polcoef(bigK,0)/logXLB)*logX;
 	logLambdaLB=-bigK*bigL*log(rho); \\-log(bigK*bigL);
-	if(dbg!=0, \\ bigL==24 && m==89 && rho==100, \\
+	if(dbg!=0,
 		printf("in alpha1_check_params(): nUB=%8.6e\n",nUB);
 		printf("bigR1=%8d\n",bigR1);
 		printf("bigR2=%8d\n",bigR2);
@@ -102,7 +115,7 @@ alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA
 		printf("log |Lambda|>%9.6e*logX\n\n",polcoef(logLambdaLB,1));
 	);
 
-	logBUB=get_logBPrime_UB(bigK,bigR,bigS,bigT,b1,b2,b3,logXLB,nUB,dbg);
+	logBUB=get_logBPrime_UB(bigK,bigR,bigS,bigT,b1,b2,b3,d1,d2,logXLB,nUB,dbg);
 	if(dbg!=0,
 		printf("log(b')<%9.6f\n",logBUB);
 	);
@@ -115,7 +128,7 @@ alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA
 
 	gDenom=12*bigR*bigS*bigT/logX/logX;
 	gDenom=subst(gDenom,logX,logXLB)*logX*logX;
-	gNumer=2*bigK*bigK*bigL;
+	gNumer=bigK*bigK*bigL;
 	gNumer=polcoef(gNumer,2,logX)*logX*logX;
 	g=1/4-gNumer/gDenom;
 	if(dbg!=0,
@@ -124,26 +137,35 @@ alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA
 	
 	\\ first the (cD+1)*log(N) term
 	eqn42RHS=(d+1)*log(polcoef(bigK,1)*polcoef(bigK,1)*bigL)+(d+1)*log(logXLB)/logXLB*logX;
+	\\ next the gL(a1*R+a2*S+a3*T) term
 	eqn42RHS=eqn42RHS+g*bigL*(a1*bigR+a2*bigS+a3*bigT);
+	\\ lastly the D(K-1)*log(b) term
 	eqn42RHS=eqn42RHS+d*(bigK-1)*logBUB;
 	eqn42RHS=subst(eqn42RHS,logN,log(nUB));
 	eqn42=eqn42LHS-eqn42RHS;
 	eqn42=pollead(polcoef(eqn42,1))*logX+pollead(polcoef(eqn42,0));
 	rt=polrootsreal(eqn42)[1];
 	if(dbg!=0,
+		printf("eqn42LHS=%s\n",eqn42LHS);
+		printf("eqn42RHS D(K-1)*log(b) term=%s\n",d*(bigK-1)*logBUB);
+		printf("eqn42RHS gL(a1*R+a2*S+a3*T) term=%s\n",g*bigL*(a1*bigR+a2*bigS+a3*bigT));
+		printf("eqn42RHS (cD+1)*log(N) term=%s\n",(d+1)*log(polcoef(bigK,1)*polcoef(bigK,1)*bigL)+(d+1)*log(logXLB)/logXLB*logX);
+		printf("eqn42RHS=%s\n",eqn42RHS);
 		printf("eqn42LHS-eqn42RHS=%s\n",eqn42);
 		printf("eqn42(x)=0 at x=%9.6f\n",rt);
 		printf("subst(eqn42,logX,logXLB)=%9.6f\n",subst(eqn42,logX,logXLB));
 	);
 
 	if(rt<logXLB && subst(eqn42,logX,logXLB)>0,
+		\\ we only handle lower bounds that are linear in logX at the moment (May 2022)
 		if(poldegree(logLambdaLB,logX)==1 && polcoef(logLambdaLB,0)==0,
 			newNonDegenNUB=logLambdaLB/lamUB1;
 			newNonDegenNUB=polcoef(newNonDegenNUB,0); \\ need this to make newNonDegenNUB real, not a poly
 			if(dbg!=0,
 				printf("newNonDegenNUB=%9.6e\n",newNonDegenNUB);
 			);
-			newDegenNUB=alpha1_do_degenerate_case(d,hgtA1,absLogA1,hgtA2,absLogA2,hgtA3,absLogA3,bigR1,bigR2,bigS1,bigT1,chi,logXLB,nLB,lamUB1,lamUB0,dbg);
+			isComplex = type(al1)=="t_COMPLEX" || type(al2)=="t_COMPLEX" || type(al3)=="t_COMPLEX";
+			newDegenNUB=alpha1_do_degenerate_case(d,hgtA1,absLogA1,hgtA2,absLogA2,hgtA3,absLogA3,bigR1,bigR2,bigS1,bigT1,chi,logXLB,nLB,lamUB1,lamUB0,isComplex,dbg);
 			if(dbg!=0,
 				printf("newDegenNUB=%9.6e\n",newDegenNUB);
 			);
@@ -155,13 +177,16 @@ alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA
 			print("BAD");
 		);
 	);
+	if(dbg!=0,
+		print("eqn42 does not hold. Stopping here.");
+	);
 	return([]);
 }
 
 \\ assume the R_i's are constant and S_i's and T_i's are both linear in logZ
 \\ also needs to have the alpha_i's
 \\ 21 Nov 2021
-alpha1_do_degenerate_case(d,hgtA1,absLogA1,hgtA2,absLogA2,hgtA3,absLogA3,bigR1,bigR2,bigS1,bigT1,chi,logXLB,nLB,lamUB1,lamUB0,dbg=0)={
+alpha1_do_degenerate_case(d,hgtA1,absLogA1,hgtA2,absLogA2,hgtA3,absLogA3,bigR1,bigR2,bigS1,bigT1,chi,logXLB,nLB,lamUB1,lamUB0,isComplex,dbg=0)={
 	my(a,aiArray2,aiArray3,chiV,chiVSqr,cM,nUB2,nUB2a,nUB2b,nUB3,nUB3a,nUB3b,nUB,u1UB,u2UB,u3UB,vSqr);
 
 	if(poldegree(bigR1)!=0,
@@ -246,9 +271,9 @@ alpha1_do_degenerate_case(d,hgtA1,absLogA1,hgtA2,absLogA2,hgtA3,absLogA3,bigR1,b
 			print("\nalpha1_do_degenerate_case(): about to check eliminating b1");
 		);
 		aiArray1=get_A1A2_from_b1(d,absLogA1,hgtA1,absLogA2,hgtA2,absLogA3,hgtA3,logXLB,u1UB,u2UB,u3UB,dbg);
-		nUB1a=get_degen_nUB([aiArray1[1],aiArray1[2]],d,nLB,lamUB0,lamUB1,u1UB,logXLB,dbg);
+		nUB1a=get_degen_nUB([aiArray1[1],aiArray1[2]],d,nLB,lamUB0,lamUB1,u1UB,logXLB,isComplex,dbg);
 		\\ nUB1b is the value by eliminating b1 when u1=0
-		nUB1b=get_degen_nUB([aiArray1[3],aiArray1[4]],d,nLB,lamUB0,lamUB1,u1UB,logXLB,dbg);
+		nUB1b=get_degen_nUB([aiArray1[3],aiArray1[4]],d,nLB,lamUB0,lamUB1,u1UB,logXLB,isComplex,dbg);
 		nUB1=max(nUB1a,nUB1b);
 		if(dbg!=0,
 			printf("alpha1_do_degenerate_case(): nUB1=%9.6e, nUB1a=%9.6e, nUB1b=%9.6e\n",nUB1,nUB1a,nUB1b);
@@ -261,9 +286,9 @@ alpha1_do_degenerate_case(d,hgtA1,absLogA1,hgtA2,absLogA2,hgtA3,absLogA3,bigR1,b
 			print("\nalpha1_do_degenerate_case(): about to check eliminating b2");
 		);
 		aiArray2=get_A1A2_from_b2(d,absLogA1,hgtA1,absLogA2,hgtA2,absLogA3,hgtA3,logXLB,u1UB,u2UB,u3UB,dbg);
-		nUB2a=get_degen_nUB([aiArray2[1],aiArray2[2]],d,nLB,lamUB0,lamUB1,u2UB,logXLB,dbg);
+		nUB2a=get_degen_nUB([aiArray2[1],aiArray2[2]],d,nLB,lamUB0,lamUB1,u2UB,logXLB,isComplex,dbg);
 		\\ nUB2b is the value by eliminating b2 when u2=0
-		nUB2b=get_degen_nUB([aiArray2[3],aiArray2[4]],d,nLB,lamUB0,lamUB1,u2UB,logXLB,dbg);
+		nUB2b=get_degen_nUB([aiArray2[3],aiArray2[4]],d,nLB,lamUB0,lamUB1,u2UB,logXLB,isComplex,dbg);
 		nUB2=max(nUB2a,nUB2b);
 		if(dbg!=0,
 			printf("alpha1_do_degenerate_case(): nUB2=%9.6e, nUB2a=%9.6e, nUB2b=%9.6e\n",nUB2,nUB2a,nUB2b);
@@ -277,9 +302,9 @@ alpha1_do_degenerate_case(d,hgtA1,absLogA1,hgtA2,absLogA2,hgtA3,absLogA3,bigR1,b
 			print("u3UB=",u3UB,", type(u3UB)=",type(u3UB));
 		);
 		aiArray3=get_A1A2_from_b3(d,absLogA1,hgtA1,absLogA2,hgtA2,absLogA3,hgtA3,logXLB,u1UB,u2UB,u3UB,dbg);
-		nUB3a=get_degen_nUB([aiArray3[1],aiArray3[2]],d,nLB,lamUB0,lamUB1,u3UB,logXLB,dbg);
+		nUB3a=get_degen_nUB([aiArray3[1],aiArray3[2]],d,nLB,lamUB0,lamUB1,u3UB,logXLB,isComplex,dbg);
 		\\ nUB3b is the value by eliminating b3 when u3=0
-		nUB3b=get_degen_nUB([aiArray3[3],aiArray3[4]],d,nLB,lamUB0,lamUB1,u3UB,logXLB,dbg);
+		nUB3b=get_degen_nUB([aiArray3[3],aiArray3[4]],d,nLB,lamUB0,lamUB1,u3UB,logXLB,isComplex,dbg);
 		\\ value from trying to eliminate b3
 		nUB3=max(nUB3a,nUB3b);
 		if(dbg!=0,
