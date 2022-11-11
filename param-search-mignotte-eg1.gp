@@ -75,7 +75,7 @@ eg1_check_it4()={
 	actMinNUB=eg1_search_general(bigL,bigL,m,m,rho,rho,chi,chi,nUB,1);
 	expMinNUB=2.862710*10^6;
 	if(abs(actMinNUB/expMinNUB-1)>0.0001,
-		printf("FAIL: eg1_check_it3(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
+		printf("FAIL: eg1_check_it4(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
 }
 
