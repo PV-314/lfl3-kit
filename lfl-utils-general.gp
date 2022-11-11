@@ -238,7 +238,7 @@ update_minNUB(val,bigL,m,rho,chi,minNUB,dbg=0)={
 			if(nDegenUB[2]<nDegenUB[1],
 				minB="b3";
 			);
-			printf("L=%4d, m=%8.4f, rho=%8.4f, chi=%6.4f, K=%12.3f*logX, nonDegen log|Lambda|>%9.6e*logX, nonDegenNUB=%10.6e, degenNUB1=%10.6e, degenNUB2=%10.6e, degenNUB3=%10.6e, nUB=%10.6e, transB-%s\n",bigL,m,rho,chi,bigK,-bigK*bigL*log(rho),nNonDegenUB,nDegenUB[1],nDegenUB[2],nDegenUB[3],nUB,minB);
+			printf("L=%4d, m=%8.4f, rho=%8.4f, chi=%7.4f, K=%12.3f*logX, nonDegen log|Lambda|>%9.6e*logX, nonDegenNUB=%10.6e, degenNUB1=%10.6e, degenNUB2=%10.6e, degenNUB3=%10.6e, nUB=%10.6e, transB-%s\n",bigL,m,rho,chi,bigK,-bigK*bigL*log(rho),nNonDegenUB,nDegenUB[1],nDegenUB[2],nDegenUB[3],nUB,minB);
 		);
 	);
 	return(localMinNUB);
