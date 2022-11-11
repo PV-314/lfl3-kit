@@ -46,10 +46,10 @@ alpha1_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,
 	c1=two13;
 	c1=max(c1,(chi*m*bigL)^(2/3));
 	c1=max(c1,sqrt(2*m*bigL/a));
-	if(type(al1)=="t_REAL" && type(al3)=="t_REAL",
+	if(type(al2)=="t_REAL" && type(al3)=="t_REAL",
 		c2=two13*(m*bigL)^(2/3);
 	);
-	if(type(al1)!="t_REAL" || type(al3)!="t_REAL",
+	if(type(al2)!="t_REAL" || type(al3)!="t_REAL",
 		c2=max(two13*(m*bigL)^(2/3),sqrt(m/a)*bigL);
 	);
 	c3=(6*m*m)^(1/3)*bigL;
