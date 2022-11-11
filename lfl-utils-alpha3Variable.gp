@@ -32,8 +32,12 @@ alpha3_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,
 		print("ERROR: type(al2)=",type(al2)," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
 		return([]);
 	);
+	if(nLB<1,
+		print("ERROR: nLB=",nLB," must be a positive integer");
+		return([]);
+	);
 
-	\\ al3 not used again, al1 and al3 only used for c2
+	\\ al3 not used again, al1 and al2 only used for c2
 	a=min(a1,a2);
 	\\print("a1=",a1,", a3=",a3,", a=",a);
 	aP=max(a1,a2); \\ aPrime=second largest
@@ -210,7 +214,7 @@ alpha3_do_degenerate_case(d,hgtA1,absLogA1,hgtA2,absLogA2,hgtA3,absLogA3,bigR1,b
 	\\printf("cM=%s\n",cM);
 	cM=max(cM,polcoef(bigR1+bigS1+1,1)+polcoef(bigR1+bigS1+1,0)/logXLB)*logX;
 	if(dbg!=0,
-		printf("alpha3_do_degenerate_case(): chiV=%9.6f*log(x)\n",polcoef(chiV,1));
+		printf("alpha3_do_degenerate_case(): chi*cV=%9.6f*log(x)\n",polcoef(chiV,1));
 		printf("alpha3_do_degenerate_case(): initial cM=%9.6f*log(x)\n",polcoef(cM,1));
 	);
 	if(polcoef(chiV,1)>polcoef(cM,1),

@@ -7,6 +7,8 @@ read("lfl3\\lfl-utils-general.gp");
 \\ uses:
 \\ can be used for mignotte-eg2
 
+\\ default code where we assume that d1 and d2 in defined in our Notation section are both 1
+\\ i.e., no info about gcd(b1,b3)=d1 or gcd(b2,b3)=d2
 \\ 4 Jan 2022
 alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,bigL,m,rho,chi,nUB,lamUB1,lamUB0,dbg=0)={
 	local(d1,d2);
@@ -16,6 +18,7 @@ alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA
 	alpha1_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,d1,d2,logXLB,nLB,bigL,m,rho,chi,nUB,lamUB1,lamUB0,dbg);
 }
 
+\\ here we use knowledge of d1 and d2. Lower bounds for either of them can be used here
 \\ 29 June 2022
 alpha1_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,d1,d2,logXLB,nLB,bigL,m,rho,chi,nUB,lamUB1,lamUB0,dbg=0)={
 	my(a,aP,bigK,bigR,bigR1,bigR2,bigR3,bigS,bigS1,bigS2,bigS3,bigT,bigT1,bigT2,bigT3,c1,c2,c3,chiV,chiVSqr,cM,eqn42LHS,eqn42RHS,f,g,isComplex,logBUB,logLambdaLB,rt,two13,vSqr);
@@ -86,6 +89,9 @@ alpha1_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,
 	bigT=(polcoef(bigT,1)+polcoef(bigT,0)/logXLB)*logX;
 
 	bigK=bigL*m*a1*a2*a3;
+	if(dbg!=0,
+		printf("in alpha1_check_params(): L=%s, m=%s, a1=%s, a2=%s, a3=%s, bigK=%s\n",bigL,m,a1,a2,a3,bigK);
+	);
 	bigK=(polcoef(bigK,1)+polcoef(bigK,0)/logXLB)*logX;
 	logLambdaLB=-bigK*bigL*log(rho); \\-log(bigK*bigL);
 	if(dbg!=0,
@@ -219,7 +225,7 @@ alpha1_do_degenerate_case(d,hgtA1,absLogA1,hgtA2,absLogA2,hgtA3,absLogA3,bigR1,b
 	\\printf("cM=%s\n",cM);
 	cM=max(cM,polcoef(bigR1+bigS1+1,1)+polcoef(bigR1+bigS1+1,0)/logXLB)*logX;
 	if(dbg!=0,
-		printf("chiV=%9.6f*log(x)\n",polcoef(chiV,1));
+		printf("chi*cV=%9.6f*log(x)\n",polcoef(chiV,1));
 		printf("initial cM=%9.6f*log(x)\n",polcoef(cM,1));
 	);
 	if(polcoef(chiV,1)>polcoef(cM,1),
@@ -310,11 +316,11 @@ alpha1_do_degenerate_case(d,hgtA1,absLogA1,hgtA2,absLogA2,hgtA3,absLogA3,bigR1,b
 
 	\\ check our guess that using the b_i for which u_iUB is smallest is best
 	if(u2UB<u3UB && nUB3<nUB2,
-		printf("BAD: in alpha3_do_degenerate_case(), u2UB=%10.6f<u3UB=%10.6f, but nUB2=%10.6f>nUB3=%10.6f\n",u2UB,u3UB,nUB2,nUB3);
+		printf("BAD: in alpha1_do_degenerate_case(), u2UB=%10.6f<u3UB=%10.6f, but nUB2=%10.6f>nUB3=%10.6f\n",u2UB,u3UB,nUB2,nUB3);
 		1/0;
 	);
 	if(u3UB<u2UB && nUB2<nUB3,
-		printf("BAD: in alpha3_do_degenerate_case(), u3UB=%10.6f<u2UB=%10.6f, but nUB3=%10.6f>nUB2=%10.6f\n",u3UB,u2UB,nUB3,nUB2);
+		printf("BAD: in alpha1_do_degenerate_case(), u3UB=%10.6f<u2UB=%10.6f, but nUB3=%10.6f>nUB2=%10.6f\n",u3UB,u2UB,nUB3,nUB2);
 		1/0;
 	);
 	if(dbg!=0,
