@@ -1,4 +1,6 @@
-2022-11-10 (yyyy-mm-dd format)
+date format is yyyy-mm-dd
+
+2022-11-10
 ==========
 gNumer fixed in alpha1_check_params() function in lfl-utils-alpha1Variable.gp
 and alpha3_check_params() function in lfl-utils-alpha3Variable.gp
@@ -17,3 +19,10 @@ added new function
 check_bounds() in lfl-utils-general.gp
 to make user programs easier (updated examples to follow)
 
+2022-11-11
+==========
+lfl-utils-alpha1Variable.gp:
+correct if clauses for c2 calculation
+
+lfl-utils-alpha3Variable.gp:
+call alpha3_check_params_with_d1d2(), not alpha1_check_params_with_d1d2, in alpha3_check_params()
