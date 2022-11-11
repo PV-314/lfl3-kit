@@ -1007,7 +1007,7 @@ check_bounds(bigLLB,bigLUB,mLB,mUB,rhoLB,rhoUB,chiLB,chiUB)={
 		printf("ERROR: rhoLB=%9.6f must be at most rhoUB=9.6f\n",rhoLB,rhoUB);
 		return(0);
 	);
-	if(rhoLB<1,
+	if(rhoLB<2,
 		printf("ERROR: rhoLB=%9.6f must be at least 2\n",rhoLB);
 		return(0);
 	);
@@ -1015,7 +1015,7 @@ check_bounds(bigLLB,bigLUB,mLB,mUB,rhoLB,rhoUB,chiLB,chiUB)={
 		printf("ERROR: chiLB=%9.6f must be at most chiUB=9.6f\n",chiLB,chiUB);
 		return(0);
 	);
-	if(chiLB<0.001,
+	if(chiLB<0.0001,
 		printf("ERROR: chiLB=%9.6f must be positve\n",chiLB);
 		return(0);
 	);
