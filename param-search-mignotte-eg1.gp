@@ -7,182 +7,160 @@ read("lfl3\\lfl-utils-alpha1Variable.gp");
 \\ where n \geq 3 is prime, \alpha=1,2,3, 0 \leq \beta<n
 \\ \Lamnda = n \log (x/y)-\alpha \log(2)-\beta \log(5)
 
-\\ L=  70, m=  3.0000, rho=  8.0000, chi=2.4100, K=   39699.763*logX, nonDegen log|Lambda|>-5.778734 e6*logX, nonDegenNUB=5.778734 e6, degenNUB1=5.921966 e6, degenNUB3=1.661151 e7, nUB=5.921966 e6, transB-b1
-\\ L=  70, m=  3.0000, rho=  8.0000, chi=2.5000, K=   39699.763*logX, nonDegen log|Lambda|>-5.778734 e6*logX, nonDegenNUB=5.778734 e6, degenNUB1=5.826089 e6, degenNUB3=1.601925 e7, nUB=5.826089 e6, transB-b1
+\\ L=  69, m=  3.5000, rho=  8.0000, chi= 3.0000, K=   45654.728*logX, nonDegen log|Lambda|>-6.550607 e6*logX, nonDegenNUB=6.550607 e6, degenNUB1=    0.e-19, degenNUB2=6.570613 e6, degenNUB3=1.296015 e7, nUB=6.570613 e6, transB-b1
 \\ 4 Jan 2022
 eg1_check_it1()={
-	my(a1,a2,a3,absLogA1,absLogA2,absLogA3,al1,al2,al3,b1,b2,b3,bigL,chi,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logXLB,m,nUB,rho);
+	my(actMinNUB,bigL,chi,expMinNUB,m,nUB,rho);
 
-	d=1;
-	al1=x;
-	al2=2;
-	al3=5;
-	
-	b1=n;
-	b2=3; \\ alpha=1, 2 or 3
-	b3=n; \\ 0 \leq beta<n
-	nLB=10^6; \\ assumption at the start of proof of Theorem 6.3
-	logXLB=floor(nLB/2600-1.5);
-	if(dbg!=0,
-		printf("calced logXLB=%5d\n",logXLB);
-	);
-	logXLB=380;
-
-	hgtA1=logX;
-	absLogA1=5.0001; \\ from Step 3 after defns of a_i's
-	hgtA2=log(2);
-	absLogA2=abs(log(al2));
-	hgtA3=log(5);
-	absLogA3=abs(log(al3));
-	
-	\\ assume that we have log |\Lambda| <lamUB1*n+lamUB0
-	lamUB1=-logX;
-	lamUB0=log(2);
-	
-	bigL=70;
-	m=3.0;
+	bigL=69;
+	m=3.5;
 	rho=8.0;
-	chi=2.41;
+	chi=3.0;
 	nUB=5.6*10^11;
 
-	a1=(rho+1)*log(al1);
-	a3=(rho+1)*log(al3);
-	a2=(rho-1)*absLogA2+2*logX;
-
-	val=alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,bigL,m,rho,chi,nUB,lamUB1,lamUB0,1);
+	actMinNUB=eg1_search_general(bigL,bigL,m,m,rho,rho,chi,chi,,1);
+	expMinNUB=6.570613*10^6;
+	if(abs(actMinNUB/expMinNUB-1)>0.0001,
+		printf("FAIL: eg1_check_it1(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
+	);
 }
 
-\\ L=  51, m=  5.0000, rho=  6.0000, chi=3.3000, K=   28795.345*logX, nonDegen log|Lambda|>-2.631311 e6*logX, nonDegenNUB=2.631311 e6, degenNUB1=2.493316 e6, degenNUB3=7.193410 e6, nUB=2.631311 e6, transB-b1
+\\ L=  46, m=  5.0000, rho=  7.0000, chi= 4.2500, K=   34139.041*logX, nonDegen log|Lambda|>-3.055849 e6*logX, nonDegenNUB=3.055849 e6, degenNUB1=    0.e-19, degenNUB2=3.066622 e6, degenNUB3=5.916155 e6, nUB=3.066622 e6, transB-b1
 \\ 4 Jan 2022 (updated with above on 27 Feb 2022)
 eg1_check_it2()={
-	my(a1,a2,a3,absLogA1,absLogA2,absLogA3,al1,al2,al3,b1,b2,b3,bigL,chi,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logXLB,m,nUB,rho);
+	my(bigL,chi,m,nUB,rho);
 
-	d=1;
-	al1=2;
-	al2=x;
-	al3=5;
-	b1=3; \\ alpha=1, 2 or 3
-	b2=n;
-	b3=n; \\ 0 \leq beta<n
-	nLB=10^6; \\ assumption at the start of proof of Theorem 6.3
-	logXLB=floor(nLB/2600-1.5);
-	if(dbg!=0,
-		printf("calced logXLB=%5d\n",logXLB);
-	);
-	logXLB=380;
-
-	hgtA1=log(2);
-	absLogA1=abs(log(al1));
-	hgtA2=logX;
-	absLogA2=5.0001; \\ from Step 3 after defns of a_i's
-	hgtA3=log(5);
-	absLogA3=abs(log(al3));
-	
-	\\ assume that we have log |\Lambda| <lamUB1*n+lamUB0
-	lamUB1=-logX;
-	lamUB0=log(2);
-	
-	bigL=51;
+	bigL=46;
 	m=5.0;
-	rho=6.0;
-	chi=3.3;
-	nUB=5.83*10^6;
-	a1=(rho+1)*log(al1);
-	a3=(rho+1)*log(al3);
-	a2=(rho-1)*absLogA2+2*logX;
-	val=alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,bigL,m,rho,chi,nUB,lamUB1,lamUB0,1);
+	rho=7.0;
+	chi=4.25;
+	nUB=6.58*10^6;
+
+	actMinNUB=eg1_search_general(bigL,bigL,m,m,rho,rho,chi,chi,nUB,1);
+	expMinNUB=3.066622*10^6;
+	if(abs(actMinNUB/expMinNUB-1)>0.0001,
+		printf("FAIL: eg1_check_it2(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
+	);
 }
 
+\\ L=  46, m=  4.0000, rho=  7.5000, chi= 4.2500, K=   30929.393*logX, nonDegen log|Lambda|>-2.866707 e6*logX, nonDegenNUB=2.866707 e6, degenNUB1=    0.e-19, degenNUB2=2.821734 e6, degenNUB3=5.534157 e6, nUB=2.866707 e6, transB-b1
 \\ 4 Jan 2022
 eg1_check_it3()={
-	my(a1,a2,a3,absLogA1,absLogA2,absLogA3,al1,al2,al3,b1,b2,b3,bigL,chi,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logXLB,m,nUB,rho);
+	my(bigL,chi,m,nUB,rho);
 
-	d=1;
-	al1=2;
-	al2=x;
-	al3=5;
-	b1=3; \\ alpha=1, 2 or 3
-	b2=n;
-	b3=n; \\ 0 \leq beta<n
-	nLB=10^6; \\ assumption at the start of proof of Theorem 6.3
-	logXLB=floor(nLB/2600-1.5);
-	if(dbg!=0,
-		printf("calced logXLB=%5d\n",logXLB);
+	bigL=46;
+	m=4.0;
+	rho=7.5;
+	chi=4.25;
+	nUB=3.07*10^6;
+
+	actMinNUB=eg1_search_general(bigL,bigL,m,m,rho,rho,chi,chi,nUB,1);
+	expMinNUB=2.866707*10^6;
+	if(abs(actMinNUB/expMinNUB-1)>0.0001,
+		printf("FAIL: eg1_check_it3(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
-	logXLB=380;
-
-	hgtA1=log(2);
-	absLogA1=abs(log(al1));
-	hgtA2=logX;
-	absLogA2=5.0001; \\ from Step 3 after defns of a_i's
-	hgtA3=log(5);
-	absLogA3=abs(log(al3));
-	
-	\\ assume that we have log |\Lambda| <lamUB1*n+lamUB0
-	lamUB1=-logX;
-	lamUB0=log(2);
-	
-	bigL=70;
-	m=3.0;
-	rho=8.0;
-	chi=2.41;
-	nUB=5.6*10^11;
-	a1=(rho+1)*log(al1);
-	a3=(rho+1)*log(al3);
-	a2=(rho-1)*absLogA2+2*logX;
-	val=alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,bigL,m,rho,chi,nUB,lamUB1,lamUB0,1);
 }
 
+\\ L=  49, m=  4.0000, rho=  7.0000, chi= 4.0000, K=   29092.401*logX, nonDegen log|Lambda|>-2.773949 e6*logX, nonDegenNUB=2.773949 e6, degenNUB1=    0.e-19, degenNUB2=2.862710 e6, degenNUB3=5.614504 e6, nUB=2.862710 e6, transB-b1
 \\ 4 Jan 2022
 eg1_check_it4()={
-	my(a1,a2,a3,absLogA1,absLogA2,absLogA3,al1,al2,al3,b1,b2,b3,bigL,chi,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logXLB,m,nUB,rho);
+	my(bigL,chi,m,nUB,rho);
 
-	d=1;
-	al1=2;
-	al2=x;
-	al3=5;
-	b1=3; \\ alpha=1, 2 or 3
-	b2=n;
-	b3=n; \\ 0 \leq beta<n
-	nLB=10^6; \\ assumption at the start of proof of Theorem 6.3
-	logXLB=floor(nLB/2600-1.5);
-	if(dbg!=0,
-		printf("calced logXLB=%5d\n",logXLB);
+	bigL=49;
+	m=4.0;
+	rho=7.0;
+	chi=4.0;
+	nUB=2.87*10^6;
+
+	actMinNUB=eg1_search_general(bigL,bigL,m,m,rho,rho,chi,chi,nUB,1);
+	expMinNUB=2.862710*10^6;
+	if(abs(actMinNUB/expMinNUB-1)>0.0001,
+		printf("FAIL: eg1_check_it3(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
-	logXLB=380;
-
-	hgtA1=log(2);
-	absLogA1=abs(log(al1));
-	hgtA2=logX;
-	absLogA2=5.0001; \\ from Step 3 after defns of a_i's
-	hgtA3=log(5);
-	absLogA3=abs(log(al3));
-	
-	\\ assume that we have log |\Lambda| <lamUB1*n+lamUB0
-	lamUB1=-logX;
-	lamUB0=log(2);
-	
-	bigL=70;
-	m=3.0;
-	rho=8.0;
-	chi=2.41;
-	nUB=5.6*10^11;
-	a1=(rho+1)*log(al1);
-	a3=(rho+1)*log(al3);
-	a2=(rho-1)*absLogA2+2*logX;
-	val=alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,bigL,m,rho,chi,nUB,lamUB1,lamUB0,1);
 }
 
-\\ nUBInit should be 5.66*10^11 here
 \\ 4 Jan 2022
 eg1_search_it1(dbg=0)={
 my(a1,a2,a3,absLogA1,absLogA2,absLogA3,b1,b2,b3,bigD,bigK,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logW,logXLB,m,matveevChi,minNUB,nDegenUB,nLB,nNonDegenUB,nUB,rho,val,w);
 
-	\\ bigD=[Q(al_1,al_2):Q] -- used for Matveev's bounds
+	bigLLB=60;
+	bigLUB=350;
+	mLB=1;
+	mUB=6;
+	rhoLB=2;
+	rhoUB=12;
+	chiLB=1;
+	chiUB=6;
+	eg1_search_general(bigLLB,bigLUB,mLB,mUB,rhoLB,rhoUB,chiLB,chiUB);
+}
+
+\\ 4 Jan 2022 (27 Feb 2022: should use nUBInit=6.58*10^6 -- upper bound from iteration 1)
+eg1_search_it2(nUBInit,dbg=0)={
+	my(al1,al2,al3,absLogA1,absLogA2,absLogA3,b1,b2,b3,bigK,chi,d,degenNUB,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logXLB,m,minNUB,nLB,nonDegenNUB,nUB,rho,val);
+
+	if(nUBInit<0.00001,
+		printf("ERROR: nUBInit=%9.6f must be a positive real number\n",nUBInit);
+		return();
+	);
+	bigLLB=40;
+	bigLUB=100;
+	mLB=1;
+	mUB=11;
+	rhoLB=4;
+	rhoUB=14;
+	chiLB=1;
+	chiUB=6;
+	eg1_search_general(bigLLB,bigLUB,mLB,mUB,rhoLB,rhoUB,chiLB,chiUB,nUBInit);
+}
+
+\\ 4 Jan 2022 (should use nUBInit=3.07*10^6 -- upper bound from iteration 2)
+eg1_search_it3(nUBInit,dbg=0)={
+	my(al1,al2,al3,absLogA1,absLogA2,absLogA3,b1,b2,b3,bigK,chi,d,degenNUB,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logXLB,m,minNUB,nLB,nonDegenNUB,nUB,rho,val);
+
+	if(nUBInit<0.00001,
+		printf("ERROR: nUBInit=%9.6f must be a positive real number\n",nUBInit);
+		return();
+	);
+	bigLLB=30;
+	bigLUB=100;
+	mLB=1;
+	mUB=11;
+	rhoLB=1;
+	rhoUB=11;
+	chiLB=2.0;
+	chiUB=7.0;
+	eg1_search_general(bigLLB,bigLUB,mLB,mUB,rhoLB,rhoUB,chiLB,chiUB,nUBInit);
+}
+
+\\ 4 Jan 2022 (should use nUBInit=2.87*10^6 -- upper bound from iteration 3)
+eg1_search_it4(nUBInit,dbg=0)={
+	my(al1,al2,al3,absLogA1,absLogA2,absLogA3,b1,b2,b3,bigK,chi,d,degenNUB,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logXLB,m,minNUB,nLB,nonDegenNUB,nUB,rho,val);
+
+	if(nUBInit<0.00001,
+		printf("ERROR: nUBInit=%9.6f must be a positive real number\n",nUBInit);
+		return();
+	);
+
+	bigLLB=30;
+	bigLUB=100;
+	mLB=1;
+	mUB=11;
+	rhoLB=1;
+	rhoUB=11;
+	chiLB=2.0;
+	chiUB=7.0;
+	eg1_search_general(bigLLB,bigLUB,mLB,mUB,rhoLB,rhoUB,chiLB,chiUB,nUBInit);
+}
+
+\\ 30 June 2022
+eg1_search_general(bigLLB,bigLUB,mLB,mUB,rhoLB,rhoUB,chiLB,chiUB,nUBInit=0,dbg=0)={
+my(a1,a2,a3,absLogA1,absLogA2,absLogA3,b1,b2,b3,bigD,bigK,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logW,logXLB,matveevChi,minNUB,nDegenUB,nLB,nNonDegenUB,nUB,val,w);
+
+	\\ bigD=[Q(al_1,al_2,al_3):Q] -- used for Matveev's bounds
 	bigD=1;
-	\\ matveevChi=[R(al_1,al_2):R] -- used for Matveev's bounds
+	\\ matveevChi=[R(al_1,al_2,al_3):R] -- used for Matveev's bounds
 	matveevChi=1;
-	\\ remember that d=[Q(al_1,al_2):Q]/[R(al_1,al_2):R]
+	\\ remember that d=[Q(al_1,al_2,al_3):Q]/[R(al_1,al_2,al_3):R]
 	d=bigD/matveevChi; \\ d is the "degree" value used in the kit
 
 	al1=x;
@@ -210,188 +188,38 @@ my(a1,a2,a3,absLogA1,absLogA2,absLogA3,b1,b2,b3,bigD,bigK,d,hgtA1,hgtA2,hgtA3,la
 	lamUB1=-logX;
 	lamUB0=log(2);
 
-	nUBInit=get_matveev_ubnd(bigD,matveevChi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,lamUB1,lamUB0,1);
-	printf("nUBInit=%9.6e\n",nUBInit);
-	printf("eg2_search_it1(): calculated nUBInit=%9.6e\n",nUBInit);
-	nUBInit=5.66*10^11;
-	printf("                 but reverting to nUBInit=%9.6e\n\n",nUBInit);
+	if(nUBInit==0,
+		nUBInit=get_matveev_ubnd(bigD,matveevChi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,lamUB1,lamUB0,1);
+		printf("nUBInit=%9.6e\n",nUBInit);
+		printf("eg1_search_general(): calculated nUBInit=%9.6e\n",nUBInit);
+		\\printf("                 but reverting to nUBInit=%9.6e\n\n",nUBInit);
+	);
 	minNUB=nUBInit;
 
-	for(bigL=40,350, \\ L=5 is the lower bound in Theorem 4.1
+	areBoundsOK=check_bounds(bigLLB,bigLUB,mLB,mUB,rhoLB,rhoUB,chiLB,chiUB);
+	if(areBoundsOK==0,
+		return();
+	);
+	mStep=(mUB-mLB)/20.0;
+	if(mStep==0,mStep=0.000001);
+	rhoStep=(rhoUB-rhoLB)/20.0;
+	if(rhoStep==0,rhoStep=0.000001);
+	chiStep=(chiUB-chiLB)/20.0;
+	if(chiStep==0,chiStep=0.000001);
+
+	for(bigL=bigLLB,bigLUB,
 	if(bigL%10==0,print("L=",bigL));
-	for(mv=1,20, \\ m \geq 1
-		m=mv/1.0;
-		for(pv=2,20, \\ rho \geq 2
-			rho=pv/1.0;
+	forstep(m=mLB,mUB,mStep,
+		forstep(rho=rhoLB,rhoUB,rhoStep,
 			a1=(rho-1)*absLogA1+2*logX;
 			a2=(rho+1)*log(al2);
 			a3=(rho+1)*log(al3);
-			for(cv=1,50,
-				chi=cv/10.0;
+			forstep(chi=chiLB,chiUB,chiStep,
 				val=alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,bigL,m,rho,chi,nUBInit,lamUB1,lamUB0,dbg);
 				minNUB=update_minNUB(val,bigL,m,rho,chi,minNUB,dbg);
 			);
 		);
 	);
 	);
-}
-
-\\ 4 Jan 2022 (27 Feb 2022: should use nUBInit=5.83*10^6)
-eg1_search_it2(nUBInit,dbg=0)={
-	my(al1,al2,al3,absLogA1,absLogA2,absLogA3,b1,b2,b3,bigK,chi,d,degenNUB,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logXLB,m,minNUB,nLB,nonDegenNUB,nUB,rho,val);
-
-	if(nUBInit<0.00001,
-		printf("ERROR: nUBInit=%9.6f must be a positive real number\n",nUBInit);
-		return();
-	);
-	minNUB=nUBInit;
-	d=1;
-	al1=2;
-	al2=x;
-	al3=5;
-	b1=3; \\ alpha=1, 2 or 3
-	b2=n;
-	b3=n; \\ 0 \leq beta<n
-	nLB=10^6; \\ assumption at the start of proof of Theorem 6.3
-	logXLB=floor(nLB/2600-1.5);
-	if(dbg!=0,
-		printf("calced logXLB=%5d\n",logXLB);
-	);
-	logXLB=380;
-
-	hgtA1=log(2);
-	absLogA1=abs(log(al1));
-	hgtA2=logX;
-	absLogA2=5.0001; \\ from Step 3 after defns of a_i's
-	hgtA3=log(5);
-	absLogA3=abs(log(al3));
-	
-	\\ assume that we have log |\Lambda| <lamUB1*n+lamUB0
-	lamUB1=-logX;
-	lamUB0=log(2);
-
-	for(bigL=20,100, \\ L=5 is the lower bound in Theorem 4.1
-	if(bigL%1==0,print("L=",bigL));
-	for(mv=1,10, \\ m \geq 1
-		m=mv/1.0;
-		for(pv=20,150, \\ rho \geq 2
-			rho=pv/10.0;
-			a1=(rho-1)*absLogA1+2*logX;
-			a2=(rho+1)*log(al2);
-			a3=(rho+1)*log(al3);
-			for(cv=1,50,
-				chi=cv/10.0;
-				val=alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,bigL,m,rho,chi,nUBInit,lamUB1,lamUB0,dbg);
-				minNUB=update_minNUB(val,bigL,m,rho,chi,minNUB,dbg);
-			);
-		);
-	);
-	);
-}
-
-\\ 4 Jan 2022
-eg1_search_it3(nUBInit,dbg=0)={
-	my(al1,al2,al3,absLogA1,absLogA2,absLogA3,b1,b2,b3,bigK,chi,d,degenNUB,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logXLB,m,minNUB,nLB,nonDegenNUB,nUB,rho,val);
-
-	if(nUBInit<0.00001,
-		printf("ERROR: nUBInit=%9.6f must be a positive real number\n",nUBInit);
-		return();
-	);
-	minNUB=nUBInit;
-	d=1;
-	al1=2;
-	al2=x;
-	al3=5;
-	b1=3; \\ alpha=1, 2 or 3
-	b2=n;
-	b3=n; \\ 0 \leq beta<n
-	nLB=10^6; \\ assumption at the start of proof of Theorem 6.3
-	logXLB=floor(nLB/2600-1.5);
-	if(dbg!=0,
-		printf("calced logXLB=%5d\n",logXLB);
-	);
-	logXLB=380;
-
-	hgtA1=log(2);
-	absLogA1=abs(log(al1));
-	hgtA2=logX;
-	absLogA2=5.0001; \\ from Step 3 after defns of a_i's
-	hgtA3=log(5);
-	absLogA3=abs(log(al3));
-	
-	\\ assume that we have log |\Lambda| <lamUB1*n+lamUB0
-	lamUB1=-logX;
-	lamUB0=log(2);
-
-	for(bigL=45,150, \\ L=5 is the lower bound in Theorem 4.1
-	if(bigL%1==0,print("L=",bigL));
-	for(mv=140,190, \\ m \geq 1
-		m=mv/10.0;
-		\\for(pv=20,300,
-		for(pv=60,90, \\ rho \geq 2
-			rho=pv/10.0;
-			a1=(rho-1)*absLogA1+2*logX;
-			a2=(rho+1)*log(al2);
-			a3=(rho+1)*log(al3);
-			for(cv=10,20,
-				chi=cv/10.0;
-				val=alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,bigL,m,rho,chi,nUBInit,lamUB1,lamUB0,dbg);
-				minNUB=update_minNUB(val,bigL,m,rho,chi,minNUB,dbg);
-			);
-		);
-	);
-	);
-}
-
-\\ 4 Jan 2022
-eg1_search_it4(nUBInit,dbg=0)={
-	my(al1,al2,al3,absLogA1,absLogA2,absLogA3,b1,b2,b3,bigK,chi,d,degenNUB,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logXLB,m,minNUB,nLB,nonDegenNUB,nUB,rho,val);
-
-	if(nUBInit<0.00001,
-		printf("ERROR: nUBInit=%9.6f must be a positive real number\n",nUBInit);
-		return();
-	);
-	minNUB=nUBInit;
-	d=1;
-	al1=2;
-	al2=x;
-	al3=5;
-	b1=3; \\ alpha=1, 2 or 3
-	b2=n;
-	b3=n; \\ 0 \leq beta<n
-	nLB=10^6; \\ assumption at the start of proof of Theorem 6.3
-	logXLB=floor(nLB/2600-1.5);
-	if(dbg!=0,
-		printf("calced logXLB=%5d\n",logXLB);
-	);
-	logXLB=380;
-
-	hgtA1=log(2);
-	absLogA1=abs(log(al1));
-	hgtA2=logX;
-	absLogA2=5.0001; \\ from Step 3 after defns of a_i's
-	hgtA3=log(5);
-	absLogA3=abs(log(al3));
-	
-	\\ assume that we have log |\Lambda| <lamUB1*n+lamUB0
-	lamUB1=-logX;
-	lamUB0=log(2);
-
-	for(bigL=36,150, \\ L=5 is the lower bound in Theorem 4.1
-	if(bigL%1==0,print("L=",bigL));
-	for(mv=280,500, \\ m \geq 1
-		m=mv/100.0;
-		for(pv=650,850,
-			rho=pv/100.0;
-			a1=(rho-1)*absLogA1+2*logX;
-			a2=(rho+1)*log(al2);
-			a3=(rho+1)*log(al3);
-			for(cv=300,400,
-				chi=cv/100.0;
-				val=alpha1_check_params(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,bigL,m,rho,chi,nUBInit,lamUB1,lamUB0,dbg);
-				minNUB=update_minNUB(val,bigL,m,rho,chi,minNUB,dbg);
-			);
-		);
-	);
-	);
+	return(minNUB);
 }
