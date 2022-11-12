@@ -1,6 +1,6 @@
 \\ \r lfl3\lfl-utils-alpha1Variable.gp
 
-read("lfl3\\lfl-utils-general.gp");
+read("lfl3\\step2-utils.gp");
 
 \\ assume that \alpha_1 is the variable \alpha_i (i.e., \alpha_2 and \alpha_3 are fixed numbers)
 
