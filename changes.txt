@@ -26,3 +26,12 @@ correct if clauses for c2 calculation
 
 lfl-utils-alpha3Variable.gp:
 call alpha3_check_params_with_d1d2(), not alpha1_check_params_with_d1d2, in alpha3_check_params()
+
+new file:
+step2-utils.gp: moved step 2 (Matveev) code here from lfl-utils-general.gp
+
+equation (4.2) code moved from lfl-utils-alpha1Variable.gp and lfl-utils-alpha3Variable.gp
+to get_eqn42() in lfl-utils-general.gp
+
+example files simplified
+
