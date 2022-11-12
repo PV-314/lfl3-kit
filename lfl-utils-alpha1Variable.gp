@@ -1,6 +1,7 @@
 \\ \r lfl3\lfl-utils-alpha1Variable.gp
 
 read("lfl3\\step2-utils.gp");
+read("lfl3\\step3-utils.gp");
 
 \\ assume that \alpha_1 is the variable \alpha_i (i.e., \alpha_2 and \alpha_3 are fixed numbers)
 
@@ -35,6 +36,11 @@ alpha1_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,
 		print("ERROR: type(al3)=",type(al3)," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
 		return([]);
 	);
+
+	if(nLB<1,
+		print("ERROR: nLB=",nLB," must be a positive integer");
+		return([]);
+	);
 	
 	\\ al1 not used again, al2 and al3 only used for c2
 	a=min(a2,a3); \\ the assumption here is that a1 will be c*logX and logX large, so a2 or a3, the constant alphas, must be smaller
@@ -57,9 +63,9 @@ alpha1_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,
 	);
 	c3=(6*m*m)^(1/3)*bigL;
 	if(dbg!=0,
-		printf("in alpha1_check_params(): c1=%10.6f\n",c1);
-		printf("in alpha1_check_params(): c2=%10.6f\n",c2);
-		printf("in alpha1_check_params(): c3=%10.6f\n",c3);
+		printf("in alpha1_check_params_with_d1d2(): c1=%10.6f\n",c1);
+		printf("in alpha1_check_params_with_d1d2(): c2=%10.6f\n",c2);
+		printf("in alpha1_check_params_with_d1d2(): c3=%10.6f\n",c3);
 	);
 	
 	bigR1=c1*a2*a3;
@@ -90,12 +96,12 @@ alpha1_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,
 
 	bigK=bigL*m*a1*a2*a3;
 	if(dbg!=0,
-		printf("in alpha1_check_params(): L=%s, m=%s, a1=%s, a2=%s, a3=%s, bigK=%s\n",bigL,m,a1,a2,a3,bigK);
+		printf("in alpha1_check_params_with_d1d2(): L=%s, m=%s, a1=%s, a2=%s, a3=%s, bigK=%s\n",bigL,m,a1,a2,a3,bigK);
 	);
 	bigK=(polcoef(bigK,1)+polcoef(bigK,0)/logXLB)*logX;
 	logLambdaLB=-bigK*bigL*log(rho); \\-log(bigK*bigL);
 	if(dbg!=0,
-		printf("in alpha1_check_params(): nUB=%8.6e\n",nUB);
+		printf("in alpha1_check_params_with_d1d2(): nUB=%8.6e\n",nUB);
 		printf("bigR1=%8d\n",bigR1);
 		printf("bigR2=%8d\n",bigR2);
 		printf("bigR3=%8d\n",bigR3);

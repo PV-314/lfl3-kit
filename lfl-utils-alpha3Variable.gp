@@ -1,6 +1,7 @@
 \\ \r lfl3\lfl-utils-alpha3Variable.gp
 
 read("lfl3\\step2-utils.gp");
+read("lfl3\\step3-utils.gp");
 
 \\ assume that \alpha_3 is the variable \alpha_i (i.e., \alpha_1 and \alpha_2 are fixed numbers)
 
@@ -54,9 +55,9 @@ alpha3_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,
 	);
 	c3=(6*m*m)^(1/3)*bigL;
 	if(dbg!=0,
-		printf("in alpha3_check_params(): c1=%10.6f\n",c1);
-		printf("in alpha3_check_params(): c2=%10.6f\n",c2);
-		printf("in alpha3_check_params(): c3=%10.6f\n",c3);
+		printf("in alpha3_check_params_with_d1d2(): c1=%10.6f\n",c1);
+		printf("in alpha3_check_params_with_d1d2(): c2=%10.6f\n",c2);
+		printf("in alpha3_check_params_with_d1d2(): c3=%10.6f\n",c3);
 	);
 	
 	bigR1=c1*a2*a3;
@@ -89,7 +90,7 @@ alpha3_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,
 	bigK=(polcoef(bigK,1)+polcoef(bigK,0)/logXLB)*logX;
 	logLambdaLB=-bigK*bigL*log(rho); \\-log(bigK*bigL);
 	if(dbg!=0, \\ bigL==24 && m==89 && rho==100, \\
-		printf("in alpha3_check_params(): nUB=%8.6e\n",nUB);
+		printf("in alpha3_check_params_with_d1d2(): nUB=%8.6e\n",nUB);
 		printf("bigR1=%11.6f*logX\n",polcoef(bigR1,1));
 		printf("bigR2=%11.6f*logX\n",polcoef(bigR2,1));
 		printf("bigR3=%11.6f*logX\n",polcoef(bigR3,1));

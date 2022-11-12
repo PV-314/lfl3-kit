@@ -10,13 +10,12 @@ read("lfl3\\lfl-utils-alpha1Variable.gp");
 \\ L=  69, m=  3.5000, rho=  8.0000, chi= 3.0000, K=   45654.728*logX, nonDegen log|Lambda|>-6.550607 e6*logX, nonDegenNUB=6.550607 e6, degenNUB1=    0.e-19, degenNUB2=6.570613 e6, degenNUB3=1.296015 e7, nUB=6.570613 e6, transB-b1
 \\ 4 Jan 2022
 eg1_check_it1()={
-	my(actMinNUB,bigL,chi,expMinNUB,m,nUB,rho);
+	my(actMinNUB,bigL,chi,expMinNUB,m,rho);
 
 	bigL=69;
 	m=3.5;
 	rho=8.0;
 	chi=3.0;
-	nUB=5.6*10^11;
 
 	actMinNUB=eg1_search_general(bigL,bigL,m,m,rho,rho,chi,chi,,1);
 	expMinNUB=6.570613*10^6;
