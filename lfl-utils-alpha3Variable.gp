@@ -117,28 +117,7 @@ alpha3_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,
 		printf("log(b')<%9.6f\n",logBUB);
 	);
 
-	\\ with K_0=2(K-1):
-	\\eqn42LHS=(bigK*bigL/2+bigL/4-1-2*bigK/bigL)*log(rho);
-	\\ with K_0=K-1, rather than K_0=2(K-1)
-	eqn42LHS=(bigK*bigL-bigK-bigK/3/bigL)*log(rho);
-	\\eqn42LHS=(polcoef(eqn42LHS,1)+polcoef(eqn42LHS,0)/logXLB)*logX;
-
-	gDenom=12*bigR*bigS*bigT/logX/logX;
-	gDenom=subst(gDenom,logX,logXLB)*logX*logX;
-	gNumer=bigK*bigK*bigL;
-	gNumer=polcoef(gNumer,2,logX)*logX*logX;
-	g=1/4-gNumer/gDenom;
-	if(dbg!=0,
-		printf("g=%8.6f\n",g);
-	);
-	
-	\\ first the (cD+1)*log(N) term
-	eqn42RHS=(d+1)*log(polcoef(bigK,1)*polcoef(bigK,1)*bigL)+(d+1)*log(logXLB)/logXLB*logX;
-	eqn42RHS=eqn42RHS+g*bigL*(a1*bigR+a2*bigS+a3*bigT);
-	eqn42RHS=eqn42RHS+d*(bigK-1)*logBUB;
-	eqn42RHS=subst(eqn42RHS,logN,log(nUB));
-	eqn42=eqn42LHS-eqn42RHS;
-	eqn42=pollead(polcoef(eqn42,1))*logX+pollead(polcoef(eqn42,0));
+	eqn42=get_eqn42(a1,a2,a3,bigK,bigL,bigR,bigS,bigT,d,rho,logBUB,nUB,logXLB,dbg);
 	rt=polrootsreal(eqn42)[1];
 	if(dbg!=0,
 		printf("eqn42LHS-eqn42RHS=%s\n",eqn42);

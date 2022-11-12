@@ -6,9 +6,9 @@ get_eqn42(a1,a2,a3,bigK,bigL,bigR,bigS,bigT,d,rho,logBUB,nUB,logXLB,dbg=0)={
 	my(eqn42,eqn42LHS,eqn42Rem,eqn42RHS,eqn42X0,eqn42X1,gDenom,gNumer);
 	
 	\\ with K_0=2(K-1):
-	eqn42LHS=(bigK*bigL/2+bigL/4+bigL/8/bigK-2*bigK/3/bigL-1)*log(rho);
+	\\eqn42LHS=(bigK*bigL/2+bigL/4+bigL/8/bigK-2*bigK/3/bigL-1)*log(rho);
 	\\ with K_0=K-1, rather than K_0=2(K-1)
-	\\eqn42LHS=(bigK*bigL-bigK-bigK/3/bigL)*log(rho);
+	eqn42LHS=(bigK*bigL-bigK-bigK/3/bigL)*log(rho);
 
 	gDenom=12*bigR*bigS*bigT/logX/logX;
 	gDenom=subst(gDenom,logX,logXLB)*logX*logX;
