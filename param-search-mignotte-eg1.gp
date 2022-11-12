@@ -124,8 +124,8 @@ eg1_search_it3(nUBInit,dbg=0)={
 	bigLUB=100;
 	mLB=1;
 	mUB=11;
-	rhoLB=1;
-	rhoUB=11;
+	rhoLB=2;
+	rhoUB=12;
 	chiLB=2.0;
 	chiUB=7.0;
 	eg1_search_general(bigLLB,bigLUB,mLB,mUB,rhoLB,rhoUB,chiLB,chiUB,nUBInit);
@@ -144,8 +144,8 @@ eg1_search_it4(nUBInit,dbg=0)={
 	bigLUB=100;
 	mLB=1;
 	mUB=11;
-	rhoLB=1;
-	rhoUB=11;
+	rhoLB=2;
+	rhoUB=12;
 	chiLB=2.0;
 	chiUB=7.0;
 	eg1_search_general(bigLLB,bigLUB,mLB,mUB,rhoLB,rhoUB,chiLB,chiUB,nUBInit);
