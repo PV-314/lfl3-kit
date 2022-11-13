@@ -2,7 +2,7 @@ INSTALLATION
 ============
 (1) have Pari installed
 (2) in the directory where Pari is installed, create a directory called lfl3
-(3) put all the files in https://github.com/PV-314/lfl3-kit in the lfl3 directory
+(3) put all the files in https://github.com/PV-314/lfl3-kit in a directory called lfl3
 
 CONTENTS
 ========
