@@ -4,56 +4,56 @@ read("lfl3\\lfl-utils-alpha3Variable.gp");
 
 \\ this is the linear form in the Annals paper of Yann, Maurice and Samir
 
-\\ L= 162, m=  2.0000, rho=  8.0000, chi=3.0000, K=   49684.477*logX, nonDegen log|Lambda|>-1.673719 e7*logX, nonDegenNUB=8.368593 e6, degenNUB1=7.913375 e6, degenNUB2=2.113373 e7, degenNUB3=   0.e-19, nUB=8.368593 e6, transB-b1
+\\ L= 147, m=  2.0000, rho=  9.0000, chi= 3.0000, K=   54647.348*logX, nonDegen log|Lambda|>-1.765066 e7*logX, nonDegenNUB=8.825328 e6, degenNUB1=8.994871 e6, degenNUB2=2.372594 e7, degenNUB3=    0.e-19, nUB=8.994871 e6, transB-b1
 \\ 10 May 2022 (after improving constant to use from Laurent's 2008 paper)
 eg3_check_it1()={
 	my(bigL,chi,m,nUB,rho);
 	
-	bigL=162;
+	bigL=147;
 	m=2.0;
-	rho=8.0;
+	rho=9.0;
 	chi=3.0;
 
 	actMinNUB=eg3_search_general(bigL,bigL,m,m,rho,rho,chi,chi,,1);
-	expMinNUB=8.368593*10^6;
+	expMinNUB=8.994871*10^6;
 	if(abs(actMinNUB/expMinNUB-1)>0.0001,
 		printf("FAIL: eg3_check_it1(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
 }
 
-\\ L=  87, m=  2.5000, rho=  9.0000, chi=4.5000, K=   40427.885*logX, nonDegen log|Lambda|>-7.728135 e6*logX, nonDegenNUB=3.864068 e6, degenNUB1=3.815539 e6, degenNUB2=1.013968 e7, degenNUB3=   0.e-19, nUB=3.864068 e6, transB-b1
+\\ L=  94, m=  2.5000, rho=  8.5000, chi= 4.2500, K=   39767.640*logX, nonDegen log|Lambda|>-7.999906 e6*logX, nonDegenNUB=3.999953 e6, degenNUB1=3.891046 e6, degenNUB2=1.034027 e7, degenNUB3=    0.e-19, nUB=3.999953 e6, transB-b1
 \\ second iteration values
 \\ 11 May 2022
 eg3_check_it2()={
 	my(bigL,chi,m,nUB,rho);
 	
-	bigL=87;
+	bigL=94;
 	m=2.5;
-	rho=9.0;
-	chi=4.5;
-	nUB=8.37*10^6;
+	rho=8.5;
+	chi=4.25;
+	nUB=9*10^6;
 
 	actMinNUB=eg3_search_general(bigL,bigL,m,m,rho,rho,chi,chi,nUB,1);
-	expMinNUB=3.864068*10^6;
+	expMinNUB=3.999953*10^6;
 	if(abs(actMinNUB/expMinNUB-1)>0.0001,
 		printf("FAIL: eg3_check_it2(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
 }
 
-\\ L=  93, m=  3.0000, rho=  7.5000, chi=4.5000, K=   38570.293*logX, nonDegen log|Lambda|>-7.227532 e6*logX, nonDegenNUB=3.613766 e6, degenNUB1=3.576316 e6, degenNUB2=9.182893 e6, degenNUB3=   0.e-19, nUB=3.613766 e6, transB-b1
+\\ L=  81, m=  2.5000, rho=  9.5000, chi= 4.5000, K=   41168.482*logX, nonDegen log|Lambda|>-7.507264 e6*logX, nonDegenNUB=3.753632 e6, degenNUB1=3.788629 e6, degenNUB2=1.006819 e7, degenNUB3=    0.e-19, nUB=3.788629 e6, transB-b1
 \\ third iteration values
 \\ 13 Dec 2021
 eg3_check_it3()={
 	my(bigL,chi,m,nUB,rho);
 	
-	bigL=93;
-	m=3.0;
-	rho=7.5;
+	bigL=81;
+	m=2.5;
+	rho=9.5;
 	chi=4.5;
-	nUB=3.87*10^6;
+	nUB=4*10^6;
 
 	actMinNUB=eg3_search_general(bigL,bigL,m,m,rho,rho,chi,chi,nUB,1);
-	expMinNUB=3.613766*10^6;
+	expMinNUB=3.788629*10^6;
 	if(abs(actMinNUB/expMinNUB-1)>0.0001,
 		printf("FAIL: eg3_check_it3(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
@@ -76,6 +76,7 @@ eg3_search_it1(nUBInit=0,dbg=0)={
 	eg3_search_general(bigLLB,bigLUB,mLB,mUB,rhoLB,rhoUB,chiLB,chiUB,nUBInit,dbg);
 }
 
+\\ for iteration 2
 \\ 13 Dec 2021
 eg3_search_it2(nUBInit,dbg=0)={ \\use nUBInit=8.37*10^6
 	my(bigLLB,bigLUB,chiLB,chiUB,mLB,mUB,rhoLB,rhoUB);
@@ -87,14 +88,15 @@ eg3_search_it2(nUBInit,dbg=0)={ \\use nUBInit=8.37*10^6
 	bigLLB=40;
 	bigLUB=500;
 	mLB=1;
-	mUB=11;
+	mUB=6;
 	rhoLB=2;
-	rhoUB=22;
+	rhoUB=12;
 	chiLB=1;
-	chiUB=11;
+	chiUB=6;
 	eg3_search_general(bigLLB,bigLUB,mLB,mUB,rhoLB,rhoUB,chiLB,chiUB,nUBInit,dbg);
 }
 
+\\ for iteration 3
 \\ 13 Dec 2021
 eg3_search_it3(nUBInit,dbg=0)={ \\ use nUBInit=3.87*10^6
 	my(a1,a2,a3,absLogA1,absLogA2,absLogA3,b1,b2,b3,bigK,chi,d,hgtA1,hgtA2,hgtA3,logXLB,m,minNUB,nDegenUB,nLB,nNonDegenUB,nUB,rho,val,w);
@@ -107,11 +109,11 @@ eg3_search_it3(nUBInit,dbg=0)={ \\ use nUBInit=3.87*10^6
 	bigLLB=40;
 	bigLUB=500;
 	mLB=1;
-	mUB=11;
+	mUB=6;
 	rhoLB=2;
 	rhoUB=12;
 	chiLB=1;
-	chiUB=11;
+	chiUB=6;
 	eg3_search_general(bigLLB,bigLUB,mLB,mUB,rhoLB,rhoUB,chiLB,chiUB,nUBInit,dbg);
 }
 

@@ -150,6 +150,11 @@ alpha3_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,
 			print("BAD");
 		);
 	);
+	if(dbg!=0,
+		if(rt>logXLB || subst(eqn42,logX,logXLB)<0,
+			printf("alpha3_check_params_with_d1d2(): rt=%9.6e, logXLB=%9.6e, subst(eqn42,logX,logXLB)=%9.6e\n",rt,logXLB,subst(eqn42,logX,logXLB));
+		);
+	);
 	return([]);
 }
 

@@ -6,26 +6,26 @@ INSTALLATION
 
 CONTENTS
 ========
-(1) param-search-eg1.gp
-(2) param-search-eg2.gp
-(3) param-search-eg3.gp
-(4) param-search-eg4.gp
-(5) lfl-utils-alpha1Variable.gp
-(6) lfl-utils-alpha3Variable.gp
+(1) lfl-utils-alpha1Variable.gp
+(2) lfl-utils-alpha3Variable.gp
+(3) param-search-bms-annals-eg.gp
+(4) param-search-bms-compositio-eg.gp
+(5) param-search-mignotte-eg1.gp
+(6) param-search-mignotte-eg2.gp
 (7) lfl-utils-general.gp
+(8) step2-utils.gp
+(9) step3-utils.gp
 
-The first four files are for running the kit against four separate examples.
-param-search-eg1.gp is for Example 1 in Mignotte's original kit paper
-param-search-eg2.gp is for Example 2 in Mignotte's original kit paper
-param-search-eg3.gp is for the linear form in the Annals paper of Bugeaud, Mignotte and Siksek.
-param-search-eg4.gp is for the linear form with D=7 in Section 15 of the Compositio paper of Bugeaud, Mignotte and Siksek.
+Files (3)-(6) above are for running the kit against four separate examples.
+param-search-bms-annals-eg.gp is for the linear form in the Annals paper of Bugeaud, Mignotte and Siksek.
+param-search-bms-compositio-eg.gp is for the linear form with D=7 in Section 15 of the Compositio paper of Bugeaud, Mignotte and Siksek.
+param-search-mignotte-eg1.gp is for Example 1 in Mignotte's original kit paper
+param-search-mignotte-eg2.gp is for Example 2 in Mignotte's original kit paper
 
-Each file contains a collection of
+Each param-search-* file contains a collection of
 egX_search_itY() functions where "it" stands for iteration.
 	So egX_search_it1() is used for the first iteration of the kit and so on.
 egX_check_itY() functions which typically contain the best example found for iteration Y using the egX_search_itY() function.
-There are also some egX_check_itY_oldZ() functions, which are older versions of egX_check_itY()
-where checks were done for bug fixes, etc.
 
 The code assumes that \Lambda is of the form
 b_1 \log(\alpha_1) + b_2 \log(\alpha_2) - b_3 \log(\alpha_3)
@@ -38,13 +38,18 @@ So we can assume that either alpha_1 is variable or alpha_3 is variable.
 lfl-utils-alpha1Variable.gp and lfl-utils-alpha3Variable.gp, respectively contain
 the code for each of these two cases.
 
-Finally, lfl-utils-general.gp contains common code used by both
+Finally, lfl-utils-general.gp, step2-utils.gp and step4-utils.gp
+contain common code used by both
 lfl-utils-alpha1Variable.gp and lfl-utils-alpha3Variable.gp.
 
 HOW TO USE
 ==========
 We recommend that you create a copy of one of the
 param-search-egX.gp files for the particular linear form that is of interest to you.
+
+Create/copy a egX_search_general() function. This will contain all the parameters
+for the linear form you are considering, as well as the code to call the functions
+that do the actual calculations.
 
 The variables that need to be assigned values are:
 	bigD,matveevChi,d
@@ -65,7 +70,14 @@ We assume that the quantity you are trying to bound from above with the kit is c
 We also assume that x is the non-constant alpha_i - this is important and used throughout.
 Once again, just follow the examples.
 
+Tip: in the egX_search_general() functions. Do not forget that a1, a2 and a3 need to be set
+inside the for loop for rho, not before that. This is because a1, a2 and a3 will depend on rho.
+
 Start by writing and running egX_search_it1().
+All it requires are lower and upper bounds for bigL, chi, m and rho,
+along with calling the function:
+egX_search_general(bigLLB,bigLUB,mLB,mUB,rhoLB,rhoUB,chiLB,chiUB,,dbg);
+
 It will produce output like the following, giving values of the parameters used and some other values.
 The key value is nUB, where UB=upper bound, so this is giving you the upper bound on n (see above)
 for those values of the parameters.
@@ -81,15 +93,15 @@ a egX_check_it1() function that checks this particular choice of the parameters.
 Again, the easiest way is to copy an existing egX_check_it1() function from one of the
 example files provided in github and just change the variables in that function, as required.
 
+Here set the lower and upper bounds for bigL, chi, m and rho to both be equal to the
+values of bigL, chi, m and rho that you want to check.
+
 This egX_check_it1() function outputs lots more information and can be used for testing,
 as well as outputting details that you may want to include in a paper for your description
 of how you used the kit (this is helpful info for readers and for referees -- see the
 exposition of the examples in Section 6 of the kit paper).
 
-Tip: in the egX_search_itY() functions. Do not forget that a1, a2 and a3 need to be set
-inside the pv for loop for rho, not before that. This is because a1, a2 and a3 will depend on rho.
-
 CONTACT
 =======
-If you have any questions, problems, need a hand, find a bug,..., please contact PV
+If you have any questions, problems, need some help, find a bug,..., please contact PV
 you can find PV's details in the arxiv preprint for the kit.
