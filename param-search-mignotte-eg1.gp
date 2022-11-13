@@ -153,7 +153,7 @@ eg1_search_it4(nUBInit,dbg=0)={
 
 \\ 30 June 2022
 eg1_search_general(bigLLB,bigLUB,mLB,mUB,rhoLB,rhoUB,chiLB,chiUB,nUBInit=0,dbg=0)={
-my(a1,a2,a3,absLogA1,absLogA2,absLogA3,b1,b2,b3,bigD,bigK,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logW,logXLB,matveevChi,minNUB,nDegenUB,nLB,nNonDegenUB,nUB,val,w);
+my(a1,a2,a3,absLogA1,absLogA2,absLogA3,b1,b2,b3,bigD,bigK,chiStep,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logW,logXLB,matveevChi,minNUB,mStep,nDegenUB,nLB,nNonDegenUB,nUB,rhoStep,val,w);
 
 	\\ bigD=[Q(al_1,al_2,al_3):Q] -- used for Matveev's bounds
 	bigD=1;
@@ -199,12 +199,9 @@ my(a1,a2,a3,absLogA1,absLogA2,absLogA3,b1,b2,b3,bigD,bigK,d,hgtA1,hgtA2,hgtA3,la
 	if(areBoundsOK==0,
 		return();
 	);
-	mStep=(mUB-mLB)/20.0;
-	if(mStep==0,mStep=0.000001);
-	rhoStep=(rhoUB-rhoLB)/20.0;
-	if(rhoStep==0,rhoStep=0.000001);
-	chiStep=(chiUB-chiLB)/20.0;
-	if(chiStep==0,chiStep=0.000001);
+	chiStep=get_step(chiLB,chiUB);
+	mStep=get_step(mLB,mUB);
+	rhoStep=get_step(rhoLB,rhoUB);
 
 	for(bigL=bigLLB,bigLUB,
 	if(bigL%10==0,print("L=",bigL));

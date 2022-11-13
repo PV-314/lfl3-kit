@@ -35,3 +35,6 @@ to get_eqn42() in lfl-utils-general.gp
 
 example files simplified
 
+new files:
+step3-utils.gp: moved step 3 code here from lfl-utils-general.gp
+step4-utils.gp: moved step 4 code here from lfl-utils-general.gp

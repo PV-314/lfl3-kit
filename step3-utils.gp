@@ -63,7 +63,7 @@ XXX_step3_update_min(val,bigL,m,rho,chi,minResult,dbg=0)={
 	
 	localMinResult=minResult;
 	if(length(val)==7,
-		nNonDegenUB=val[7];
+		nNonDegenUB=val[7]; \\ newNonDegenNUB
 		if(dbg!=0,
 			print("nNonDegenUB=",nNonDegenUB,", type=",type(nNonDegenUB));
 			print("localMinResult[11]=",localMinResult[11]);
@@ -71,7 +71,7 @@ XXX_step3_update_min(val,bigL,m,rho,chi,minResult,dbg=0)={
 		if(nNonDegenUB>0 && nNonDegenUB<localMinResult[11],
 			bigK=val[1];
 			if(abs(polcoef(bigK,0))>0.0001 || abs(polcoef(bigK,1))<0.0001,
-				printf("ERROR: K=%s is incorrect form\n",bigK);
+				printf("ERROR: K=%s is in incorrect form\n",bigK);
 				1/0;
 			);
 			localMinResult[1]=bigK;
@@ -104,7 +104,9 @@ get_logBPrime_UB(bigK,bigR,bigS,bigT,b1,b2,b3,d1,d2,logXLB,nUB,dbg=0)={
 	my(logB1,logB2,logBUB);
 	
 	\\ here we break the expression for b (defined in the notation section)
-	\\ into three parts: 1) B1=b3'*eta0=(b3/d1)*eta0; 2) B2=b3''*zeta0=(b3/d2)*zeta0;
+	\\ into three parts:
+	\\ 1) B1=b3p*eta0=(b3/d1)*eta0;
+	\\ 2) B2=b3pp*zeta0=(b3/d2)*zeta0;
 	\\ 3) the factorial part
 	\\ also note that despite the name, it is not actually a log of anything yet
 	\\ (but that does happen at the very end of handling logB1 here. Same with logB2)

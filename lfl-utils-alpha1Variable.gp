@@ -2,6 +2,7 @@
 
 read("lfl3\\step2-utils.gp");
 read("lfl3\\step3-utils.gp");
+read("lfl3\\step4-utils.gp");
 
 \\ assume that \alpha_1 is the variable \alpha_i (i.e., \alpha_2 and \alpha_3 are fixed numbers)
 
