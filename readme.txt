@@ -6,15 +6,16 @@ INSTALLATION
 
 CONTENTS
 ========
-(1) lfl-utils-alpha1Variable.gp
-(2) lfl-utils-alpha3Variable.gp
-(3) param-search-bms-annals-eg.gp
-(4) param-search-bms-compositio-eg.gp
-(5) param-search-mignotte-eg1.gp
-(6) param-search-mignotte-eg2.gp
-(7) lfl-utils-general.gp
-(8) step2-utils.gp
-(9) step3-utils.gp
+(1)  lfl-utils-alpha1Variable.gp
+(2)  lfl-utils-alpha3Variable.gp
+(3)  param-search-bms-annals-eg.gp
+(4)  param-search-bms-compositio-eg.gp
+(5)  param-search-mignotte-eg1.gp
+(6)  param-search-mignotte-eg2.gp
+(7)  lfl-utils-general.gp
+(8)  step2-utils.gp
+(9)  step3-utils.gp
+(10) step4-utils.gp
 
 Files (3)-(6) above are for running the kit against four separate examples.
 param-search-bms-annals-eg.gp is for the linear form in the Annals paper of Bugeaud, Mignotte and Siksek.
@@ -38,9 +39,10 @@ So we can assume that either alpha_1 is variable or alpha_3 is variable.
 lfl-utils-alpha1Variable.gp and lfl-utils-alpha3Variable.gp, respectively contain
 the code for each of these two cases.
 
-Finally, lfl-utils-general.gp, step2-utils.gp and step4-utils.gp
+Finally, lfl-utils-general.gp, step2-utils.gp, step3-utils.gp and step4-utils.gp
 contain common code used by both
 lfl-utils-alpha1Variable.gp and lfl-utils-alpha3Variable.gp.
+These steps correspond to the steps in the kit manuscript.
 
 HOW TO USE
 ==========
