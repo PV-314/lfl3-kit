@@ -159,7 +159,7 @@ alpha3_check_params_with_d1d2(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,
 	return([]);
 }
 
-\\ assume the S_i's are constant and R_i's and T_i's are both linear in logZ
+\\ assume the T_i's are constant and R_i's and S_i's are both linear in logZ
 \\ also needs to have the alpha_i's
 \\ 21 Nov 2021
 alpha3_do_degenerate_case(d,hgtA1,absLogA1,hgtA2,absLogA2,hgtA3,absLogA3,bigR1,bigS1,bigT1,bigT2,chi,logXLB,nLB,lamUB1,lamUB0,isComplex,dbg=0)={
