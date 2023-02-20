@@ -1,13 +1,13 @@
-\\ \r lfl3\step2-utils.gp
+\\ \r lfl3\utils-step2.gp
 
-\\ read("lfl3\\lfl-utils-general.gp");
+read("lfl3\\utils-general.gp");
 
 \\ 17 Mar 2022
 get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,lamUB1,lamUB0,dbg=0)={
 	my(a,actB1,actB2,actB3,b1gA1,b1gA2,b1gA3,bigB,bigBCnst,c1,lamLB,nUB,rts,t);
 
 	if(type(al1)!="t_POL",
-		if(dbg!=0,
+		if(dbg>0,
 			print("get_matveev_ubnd(): swapping al1 and al2 to try to make al1 a polynomial");
 		);
 		t=al1;
@@ -27,7 +27,7 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 		b2=t;
 	);
 	if(type(al1)!="t_POL",
-		if(dbg!=0,
+		if(dbg>0,
 			print("get_matveev_ubnd(): swapping al1 and al3 to try to make al1 a polynomial");
 		);
 		t=al1;
@@ -59,7 +59,7 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 		return([]);
 	);
 
-	if(dbg!=0,
+	if(dbg>0,
 		print("get_matveev_ubnd(): bigD*hgtA1-absLogA1=",bigD*hgtA1-absLogA1);
 	);
 	if(bigD*hgtA1-absLogA1!=0,
@@ -78,7 +78,7 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 	bigA2=max(bigD*hgtA2,absLogA2);
 
 	bigA3=max(bigD*hgtA3,absLogA3);
-	if(dbg!=0,
+	if(dbg>0,
 		print("bigA1=",bigA1);
 		print("bigA2=",bigA2);
 		print("bigA3=",bigA3);
@@ -106,7 +106,7 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 		actB1=actB3;
 		actB3=t;
 	);
-	if(dbg!=0,
+	if(dbg>0,
 		print("get_matveev_ubnd(): actB1=",actB1,", actB2=",actB2,", actB3=",actB3);
 		\\print("b1-b2*bigA2/bigA1=",actB1-actB2*bigA2/bigA1);
 	);
@@ -134,13 +134,13 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 	\\
 	bigBCnst=subst(bigB,n,nLB)/nLB;
 	bigB=bigBCnst*n;
-	if(dbg!=0,
+	if(dbg>0,
 		print("get_matveev_ubnd(): bigB=",bigB);
 	);
 	
 	c1=5*16^5/6/chi*exp(3.0)*(7+2*chi)*(3*exp(1)/2)^chi*(26.25+log(bigD*bigD*log(exp(1)*bigD)));
 	lamLB=-c1*bigD*bigD*bigA1*bigA2*bigA3*(log(1.5*exp(1.0)*bigD*log(exp(1)*bigD))+log(bigBCnst)+logN);
-	if(dbg!=0,
+	if(dbg>0,
 		print("get_matveev_ubnd(): lamLB=",lamLB);
 	);
 
@@ -148,7 +148,7 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 	a=(polcoef(lamLB,0,logN)-lamUB0)/lamUB1;
 	a=subst(a,logX,logXLB);
 	b=polcoef(lamLB,1,logN)/lamUB1;
-	if(dbg!=0,
+	if(dbg>0,
 		print("get_matveev_ubnd(): a=",a,", b=",b,", polcoef(lamLB,1,logN)=",polcoef(lamLB,1,logN),", lamUB1=",lamUB1);
 	);
 	if(poldegree(numerator(b),logX)>poldegree(denominator(b),logX),
@@ -158,7 +158,7 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 
 	h=1;
 	nUB=get_solnUB(a,b,h,dbg);
-	if(dbg!=0,
+	if(dbg>0,
 		printf("get_matveev_ubnd(): nUB=%12.6e\n\n",nUB);
 	);
 	return(nUB);

@@ -27,14 +27,24 @@ correct if clauses for c2 calculation
 lfl-utils-alpha3Variable.gp:
 call alpha3_check_params_with_d1d2(), not alpha1_check_params_with_d1d2, in alpha3_check_params()
 
-new file:
-step2-utils.gp: moved step 2 (Matveev) code here from lfl-utils-general.gp
+2023-02-16
+==========
+change interpolation matrices to use Michel Waldschmidt's (see Chapter 7 of his book, ``Diophantine Approximation on Linear Algebraic Groups'')
+this improves the results obtained by roughly a factor of 5 over the previous correct results
+modify all files appropriately, including example files
 
-equation (4.2) code moved from lfl-utils-alpha1Variable.gp and lfl-utils-alpha3Variable.gp
-to get_eqn42() in lfl-utils-general.gp
+now use Theorem 2 of Laurent's 2008 paper, rather than the corollaries in that paper.
+this removes influence of degenerate case for complex linear forms and gets us to within 50% of best possible non-degenerate result for real linear forms
+(see start of Section 3 of kit paper for definitions of real and complex linear forms)
+modify all files appropriately, including example files
 
-example files simplified
+rename all files so first part of name creates a ``namespace''.
+files containing user code (examples, say) all start with "eg-"
+files containing functions for users of the kit all start with "kit-".
+files containing internal implementation of the kit all start with "utils-".
 
-new files:
-step3-utils.gp: moved step 3 code here from lfl-utils-general.gp
-step4-utils.gp: moved step 4 code here from lfl-utils-general.gp
+multiple levels of logging now supported
+dbg=0: no internal logging displayed
+dbg=1: all step 3 logging displayed and some step 4 logging displayed
+dbg=2: all step 3 and step 4 logging displayed
+this was due to all the logging produced when doing search for best \varrho and \mu in Theorem 2 in Laurent's 2008 paper
