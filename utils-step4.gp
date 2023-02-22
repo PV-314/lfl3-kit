@@ -564,6 +564,10 @@ calc_degen_nUB(bigLambdaLB,lamMul,lamUB1,lamUB0,logXLB,dbg=0)={
 step4_update_minNUB(step3Result,minNUB,step4Result,dbg=0)={
 	my(bigK,bigL,chi,localMinNUB,m,minB,minNDegenUB,minRho2Logs,nDegenUB,nNonDegenUB,nUB,rho3Logs);
 
+	if(dbg>0,
+		print("step3Result=",step3Result);
+		print("step4Result=",step4Result);
+	);
 	bigK=step3Result[1];
 	bigL=step3Result[2];
 	m=step3Result[3];

@@ -108,10 +108,19 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 	);
 	if(dbg>0,
 		print("get_matveev_ubnd(): actB1=",actB1,", actB2=",actB2,", actB3=",actB3);
-		\\print("b1-b2*bigA2/bigA1=",actB1-actB2*bigA2/bigA1);
+		print("b1=",b1,", b2=",b2,", bigA1=",bigA1,", bigA2=",bigA2);
+		print("b1-b2*bigA2/bigA1=",actB1-actB2*bigA2/bigA1);
 	);
 	
-	rts=polrootsreal(actB1-subst(actB2*bigA2/bigA1,logX,logXLB));
+	p1=actB1-subst(actB2*bigA2/bigA1,logX,logXLB);
+	if(abs(polcoef(p1,1,n))<0.000001 && abs(polcoef(p1,0,n))<0.000001,
+		print("ERROR in get_matveev_ubnd(): b1-b2*bigA2/bigA1=",p1);
+		print("b1=",b1,", b2=",b2,", bigA1=",bigA1,", bigA2=",bigA2);
+		print("b1-b2*bigA2/bigA1=",actB1-actB2*bigA2/bigA1);
+		print("likely need to increase logXLB");
+		1/0;
+	);
+	rts=polrootsreal(p1);
 	\\print("b1 rts=",rts);
 	if(length(rts)>0 && rts[1]<nLB,
 		bigB=actB1;

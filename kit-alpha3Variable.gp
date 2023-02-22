@@ -268,6 +268,7 @@ alpha3_do_step4_calcs(step3Result,d,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,ab
 	\\ u1UB=bR=B_R in Step 3
 	\\ we assume that S_1>T_1 there
 	if(subst(bigS1,logX,logXLB)<bigT1,
+		print("ERROR in alpha3_do_step4_calcs(): need S1=",bigS1,">T1=",bigT1,". Increase logXLB.");
 		return([]);
 	);
 	u1UB=(bigS1+1)*(bigT1+1);
@@ -276,6 +277,7 @@ alpha3_do_step4_calcs(step3Result,d,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,ab
 
 	\\ doing u2UB calculation: we assume that R_1>T_1 there
 	if(subst(bigR1,logX,logXLB)<bigT1,
+		print("ERROR in alpha3_do_step4_calcs(): need R1=",bigR1,">R1=",bigR1,". Increase logXLB.");
 		return([]);
 	);
 	u2UB=(bigR1+1)*(bigT1+1);
