@@ -51,4 +51,5 @@ this was due to all the logging produced when doing search for best \varrho and 
 
 2023-02-12
 ==========
-improve error messages when logXLB is too small
+improve error messages and error handling
+

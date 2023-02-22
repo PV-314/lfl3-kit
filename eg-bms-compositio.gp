@@ -82,6 +82,7 @@ bms2_check_it4()={
 	rho3Logs=5.75;
 	chi=0.1;
 	nUB=25.4*10^6;
+	mu=0.604;
 
 	actMinNUB=bms2_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,nUB,2);
 	expMinNUB=24.93154*10^6;
@@ -185,7 +186,7 @@ bms2_search_it4(nUBInit,dbg=0)={ \\use nUBInit=7.28*10^6
 \\ (they are bounds for the mu in Theorem 2 of Laurent's 2008 paper)
 \\ 3 July 2022
 bms2_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,muLB=0,muUB=0,nUBInit=0,dbg=0)={
-	my(a1,a2,a3,absLogA1,absLogA2,absLogA3,al1,al2,al3,areBoundsOK,b1,b2,b3,bigD,bigK,chiStep,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logW,logXLB,matveevChi,minNUB,mStep,nDegenUB,nLB,nNonDegenUB,nUB,rho3Step,startTime,step3Result);
+	my(a1,a2,a3,absLogA1,absLogA2,absLogA2a,absLogA2b,absLogA3,al1,al2,al3,areBoundsOK,b1,b2,b3,bigD,bigK,chiStep,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logW,logXLB,matveevChi,minNUB,mStep,nDegenUB,nLB,nNonDegenUB,nUB,rho3Step,startTime,step3Result);
 
 	startTime=getwalltime();
 	\\ bigD=[Q(al_1,al_2,al_3):Q] -- used for Matveev's bounds
@@ -255,7 +256,7 @@ bms2_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2U
 			);
 		);
 		if(length(step3Result)>0 && step3Result[11]<minNUB,
-			printf("for chi=%9.6f, minNonDegenNUB=%9.6e\n",chi,step3Result[11]);
+			printf("\nfor chi=%9.6f, minNonDegenNUB=%9.6e\n",chi,step3Result[11]);
 			minNUB=alpha1_do_step4(step3Result,minNUB,d,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgtA3,chi,rho2LB,rho2UB,muLB,muUB,logXLB,nLB,lamUB1,lamUB0,dbg);
 		);
 	);

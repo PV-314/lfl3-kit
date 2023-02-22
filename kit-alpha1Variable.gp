@@ -27,7 +27,7 @@ alpha1_do_step3(step3Result,d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3
 alpha1_do_step3_with_d1d2(step3Result,d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,d1,d2,chi,bigL,m,rho,nUB,logXLB,nLB,lamUB1,lamUB0,dbg=0)={
 	my(newStep3Result,val);
 	
-	val=alpha1_do_step3_calcs(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,d1,d2,chi,bigL,m,rho,nUB,logXLB,nLB,lamUB1,lamUB0,dbg);
+	val=alpha1_do_step3_calcs(d,type(al1),a1,absLogA1,hgtA1,type(al2),a2,absLogA2,hgtA2,type(al3),a3,absLogA3,hgtA3,b1,b2,b3,d1,d2,chi,bigL,m,rho,nUB,logXLB,nLB,lamUB1,lamUB0,dbg);
 	newStep3Result=step3_update_min(val,bigL,m,rho,chi,step3Result,dbg);
 	return(newStep3Result);
 }
@@ -35,31 +35,26 @@ alpha1_do_step3_with_d1d2(step3Result,d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hg
 \\ returns val=[bigK,bigR1,bigR2,bigS1,bigT1,bigT2,newNonDegenNUB] or else it is empty
 \\ here we use knowledge of d1 and d2. Lower bounds for either of them can be used here
 \\ 29 June 2022
-alpha1_do_step3_calcs(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,d1,d2,chi,bigL,m,rho,nUB,logXLB,nLB,lamUB1,lamUB0,dbg=0)={
+alpha1_do_step3_calcs(d,al1Type,a1,absLogA1,hgtA1,al2Type,a2,absLogA2,hgtA2,al3Type,a3,absLogA3,hgtA3,b1,b2,b3,d1,d2,chi,bigL,m,rho,nUB,logXLB,nLB,lamUB1,lamUB0,dbg=0)={
 	my(a,aP,areMultIndep,bigK,bigR,bigR1,bigR2,bigR3,bigS,bigS1,bigS2,bigS3,bigT,bigT1,bigT2,bigT3,c1,c2,c3,chiV,chiVSqr,cM,eqn42,g,isComplex,isZeroEstOK,logBUB,logLambdaLB,rt,vSqr);
 
-	if(type(al1)!="t_POL",
-		print("ERROR: type(al1)=",type(al1)," must be t_POL");
-		return([]);
+	if(al1Type!="t_POL",
+		error("ERROR in alpha1_do_step3_calcs(): al1Type=",al1Type," must be t_POL");
 	);
-	if(type(al2)!="t_INT" && type(al2)!="t_FRAC" && type(al2)!="t_REAL" && type(al2)!="t_COMPLEX",
-		print("ERROR: type(al2)=",type(al2)," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
-		return([]);
+	if(al2Type!="t_INT" && al2Type!="t_FRAC" && al2Type!="t_REAL" && al2Type!="t_COMPLEX",
+		error("ERROR in alpha1_do_step3_calcs(): al2Type=",al2Type," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
 	);
-	if(type(al3)!="t_INT" && type(al3)!="t_FRAC" && type(al3)!="t_REAL" && type(al3)!="t_COMPLEX",
-		print("ERROR: type(al3)=",type(al3)," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
-		return([]);
+	if(al3Type!="t_INT" && al3Type!="t_FRAC" && al3Type!="t_REAL" && al3Type!="t_COMPLEX",
+		error("ERROR in alpha1_do_step3_calcs(): al3Type=",al3Type," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
 	);
 	if(type(b1)!="t_POL",
-		print("ERROR: type(b1)=",type(b1)," must be t_POL for the kit to succeed here.");
-		return([]);
+		error("ERROR in alpha1_do_step3_calcs(): type(b1)=",type(b1)," must be t_POL for the kit to succeed here.");
 	);
 	if(nLB<1,
-		print("ERROR: nLB=",nLB," must be a positive integer");
-		return([]);
+		error("ERROR in alpha1_do_step3_calcs(): nLB=",nLB," must be a positive integer");
 	);
 	
-	\\ al1 not used again, al2 and al3 only used for c2
+	\\ al1Type not used again, al2Type and al3Type only used for are_multiplicatively_independent()
 	a=min(a2,a3); \\ the assumption here is that a1 will be c*logX and logX large, so a2 or a3, the constant alphas, must be smaller
 	aP=max(a2,a3); \\ aPrime=second largest
 	if(dbg>0,
@@ -68,7 +63,7 @@ alpha1_do_step3_calcs(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLo
 		printf("alpha1_do_step3_calcs(): aPrime=%10.6f\n",aP);
 	);
 	
-	areMultIndep=are_multiplicatively_independent(al2,al3);
+	areMultIndep=are_multiplicatively_independent(al2Type,al3Type);
 	c1=get_c1(a,bigL,chi,m);
 	c2=get_c2(areMultIndep,a,bigL,m);
 	c3=(3*m*m)^(1/3)*bigL;
@@ -110,8 +105,8 @@ alpha1_do_step3_calcs(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLo
 	);
 	bigK=(polcoef(bigK,1)+polcoef(bigK,0)/logXLB)*logX;
 	if(bigK==0,
-		printf("alpha1_do_step3_calcs(): L=%s, m=%s, a1=%s, a2=%s, a3=%s, bigK=%s\n",bigL,m,a1,a2,a3,bigK);
-		1/0;
+		printf("ERROR in alpha1_do_step3_calcs(): K=%s cannot be 0, L=%s, m=%s, a1=%s, a2=%s, a3=%s\n",bigK,m,a1,a2,a3,bigL);
+		error();
 	);
 	logLambdaLB=-bigK*bigL*log(rho);
 	if(dbg>0,
@@ -185,7 +180,7 @@ alpha1_do_step3_calcs(d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLo
 alpha1_do_step4(step3Result,minNUB,d,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgtA3,chi,rho2LB,rho2UB,muLB,muUB,logXLB,nLB,lamUB1,lamUB0,dbg=0)={
 	my(newMinNUB,step4Result);
 	
-	step4Result=alpha1_do_step4_calcs(step3Result,d,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgtA3,chi,rho2LB,rho2UB,muLB,muUB,logXLB,nLB,lamUB1,lamUB0,dbg);
+	step4Result=alpha1_do_step4_calcs(step3Result,d,type(al1),absLogA1,hgtA1,type(al2),absLogA2,hgtA2,type(al3),absLogA3,hgtA3,chi,rho2LB,rho2UB,muLB,muUB,logXLB,nLB,lamUB1,lamUB0,dbg);
 	newMinNUB=step4_update_minNUB(step3Result,minNUB,step4Result,dbg);
 	return(newMinNUB);
 }
@@ -196,20 +191,17 @@ alpha1_do_step4(step3Result,minNUB,d,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,a
 \\ it returns [nUB1,rhoB1,muB1,nUB2,rhoB2,muB2,nUB3,rhoB3,muB3]
 \\ one triple of (nUB, rho, mu) for each of the possibilities of eliminating a b_i term
 \\ 21 Nov 2021
-alpha1_do_step4_calcs(step3Result,d,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgtA3,chi,rho2LB,rho2UB,muLB,muUB,logXLB,nLB,lamUB1,lamUB0,dbg=0)={
+alpha1_do_step4_calcs(step3Result,d,al1Type,absLogA1,hgtA1,al2Type,absLogA2,hgtA2,al3Type,absLogA3,hgtA3,chi,rho2LB,rho2UB,muLB,muUB,logXLB,nLB,lamUB1,lamUB0,dbg=0)={
 	my(a,b1aResult,b1bResult,b2aResult,b2bResult,b3aResult,b3bResult,bigR1,bigR2,bigS1,bigT1,chiV,chiVSqr,cM,isComplex,logAiArray1,logAiArray2,logAiArray3,muB1,muB2,muB3,nUB1,nUB1a,nUB1b,nUB2,nUB2a,nUB2b,nUB3,nUB3a,nUB3b,rhoB1,rhoB2,rhoB3,u1UB,u2UB,u3UB,vSqr);
 
-	if(type(al1)!="t_POL",
-		print("ERROR in alpha1_do_step4_calcs(): type(al1)=",type(al1)," must be t_POL");
-		return([]);
+	if(al1Type!="t_POL",
+		error("ERROR in alpha1_do_step4_calcs(): al1Type=",al1Type," must be t_POL");
 	);
-	if(type(al2)!="t_INT" && type(al2)!="t_FRAC" && type(al2)!="t_REAL" && type(al2)!="t_COMPLEX",
-		print("ERROR in alpha1_do_step4_calcs(): type(al2)=",type(al2)," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
-		return([]);
+	if(al2Type!="t_INT" && al2Type!="t_FRAC" && al2Type!="t_REAL" && al2Type!="t_COMPLEX",
+		error("ERROR in alpha1_do_step4_calcs(): al2Type=",al2Type," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
 	);
-	if(type(al3)!="t_INT" && type(al3)!="t_FRAC" && type(al3)!="t_REAL" && type(al3)!="t_COMPLEX",
-		print("ERROR in alpha1_do_step4_calcs(): type(al3)=",type(al3)," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
-		return([]);
+	if(al3Type!="t_INT" && al3Type!="t_FRAC" && al3Type!="t_REAL" && al3Type!="t_COMPLEX",
+		error("ERROR in alpha1_do_step4_calcs(): al3Type=",al3Type," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
 	);
 
 	bigR1=step3Result[6];
@@ -298,7 +290,7 @@ alpha1_do_step4_calcs(step3Result,d,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,ab
 		printf("alpha1_do_step4_calcs(): u3UB=%10.6f\n",u3UB); \\ bT
 	);
 	
-	isComplex=is_complex(al1,al2,al3);
+	isComplex=is_complex(al1Type,al2Type,al3Type);
 	nUB1=0;
 	if(type(u1UB)!="t_POL",
 		if(dbg>0,
@@ -403,11 +395,9 @@ alpha1_do_step4_calcs(step3Result,d,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,ab
 	\\ check our guess that using the b_i for which u_iUB is smallest is best
 	if(u2UB<u3UB && 1.001*nUB3<nUB2,
 		printf("BAD in alpha1_do_step4_calcs(): u2UB=%10.6f<u3UB=%10.6f, but nUB2=%10.6f>nUB3=%10.6f\n",u2UB,u3UB,nUB2,nUB3);
-		\\1/0;
 	);
 	if(u3UB<u2UB && 1.001*nUB2<nUB3,
 		printf("BAD in alpha1_do_step4_calcs(): u3UB=%10.6f<u2UB=%10.6f, but nUB3=%10.6f>nUB2=%10.6f\n",u3UB,u2UB,nUB3,nUB2);
-		\\1/0;
 	);
 	if(dbg>0,
 		printf("nUB1=%9.6e\n",nUB1);

@@ -1,4 +1,4 @@
-\\ \r lfl3\utils-step4.gp
+\r lfl3\utils-step4.gp
 
 read("lfl3\\utils-general.gp");
 
@@ -343,7 +343,7 @@ calc_degen_mult_indep_nUB(absLogAlpha1,hgtAlpha1,absLogAlpha2,hgtAlpha2,isComple
 			printf("BAD: a1*a2=%9.6f<lambda^2=%9.6f\n",a1*a2,lambda*lambda);
 			print("rho=",rho,", bigD=",bigD,", absLogAlpha1=",absLogAlpha1,", hgtAlpha1=",hgtAlpha1);
 			print("rho=",rho,", bigD=",bigD,", absLogAlpha2=",absLogAlpha2,", hgtAlpha2=",hgtAlpha2);
-			1/0;
+			error();
 		);
 		a1LB=subst(a1,logX,logXLB);
 		a2LB=subst(a2,logX,logXLB);
@@ -463,8 +463,8 @@ calc_degen_mult_dep_nUB(absLogAlpha1,hgtAlpha1,absLogAlpha2,hgtAlpha2,d,lamMul,l
 		bigH=bigH/cf1;
 	);
 	if(poldegree(bigH,logN)!=1,
-		print("ERROR in calc_degen_mult_dep_nUB(): bigH=",bigH);
-		1/0;
+		print("ERROR in calc_degen_mult_dep_nUB(): bigH=",bigH," must be a linear polynomial in logN");
+		error();
 	);
 	if(dbg>0,
 		if(polcoef(bigH,0,logN)<0,
@@ -550,7 +550,7 @@ calc_degen_nUB(bigLambdaLB,lamMul,lamUB1,lamUB0,logXLB,dbg=0)={
 	);
 	if(poldegree(bigLambdaLB,logN)!=2 || poldegree(bigLambdaLB,logX)!=1,
 		print("ERROR in calc_degen_nUB(): bigLambda must be of degree 2 in logN and degree 1 in logX, bigLambdaLB=",bigLambdaLB);
-		1/0;
+		error();
 	);
 	if(dbg>0,
 		printf("calc_degen_nUB(): returning nUB=%9.6e\n",nUB);

@@ -98,7 +98,7 @@ get_step(vLB,vUB)={
 	
 	if(vLB>vUB,
 		printf("ERROR in get_step(), vLB=%9.6f must be at most vUB=%9.6f\n");
-		1/0;
+		error();
 	);
 	vStep=(vUB-vLB)/20.0;
 	if(vStep==0,vStep=0.000001);
@@ -107,12 +107,13 @@ get_step(vLB,vUB)={
 
 \\ the following functions are a bit overkill, but want to reduce duplicated code
 \\ if two are real, then all three are real and so they are multiplicatively independent (our assumption at the start of Section 3)
+\\ otherwise we err on the side of caution and return 0 (so that we check both the mult. indep and mult. dep possibilities)
 \\ 15 Jan 2023
-are_multiplicatively_independent(al1,al2)={
+are_multiplicatively_independent(al1Type,al2Type)={
 	my(areMultIndep);
 	
 	areMultIndep=0;
-	if(type(al1)=="t_REAL" && type(al2)=="t_REAL",
+	if(al1Type=="t_REAL" && al2Type=="t_REAL",
 		areMultIndep=1;
 	);
 	return(areMultIndep);
@@ -120,9 +121,10 @@ are_multiplicatively_independent(al1,al2)={
 
 \\ this is correct from our assumption at the start of Section 3
 \\ 15 Jan 2023
-is_complex(al1,al2,al3)={
+is_complex(al1Type,al2Type,al3Type)={
 	my(isComplex);
-	isComplex = type(al1)=="t_COMPLEX" || type(al2)=="t_COMPLEX" || type(al3)=="t_COMPLEX";
+	
+	isComplex = al1Type=="t_COMPLEX" || al2Type=="t_COMPLEX" || al3Type=="t_COMPLEX";
 	return(isComplex);
 }
 

@@ -203,7 +203,7 @@ eg1_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB
 			);
 		);
 		if(length(step3Result)>0 && step3Result[11]<minNUB,
-			printf("for chi=%9.6f, minNonDegenNUB=%9.6e\n",chi,step3Result[11]);
+			printf("\nfor chi=%9.6f, minNonDegenNUB=%9.6e\n",chi,step3Result[11]);
 			minNUB=alpha1_do_step4(step3Result,minNUB,d,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgtA3,chi,rho2LB,rho2UB,muLB,muUB,logXLB,nLB,lamUB1,lamUB0,dbg);
 		);
 	);

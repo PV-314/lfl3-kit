@@ -1,4 +1,4 @@
-\\ \r lfl3\utils-step3.gp
+\r lfl3\utils-step3.gp
 
 read("lfl3\\utils-general.gp");
 
@@ -253,7 +253,7 @@ step3_update_min(val,bigL,m,rho,chi,minResult,dbg=0)={
 		bigK=val[1];
 		if(abs(polcoef(bigK,0))>0.0001 || abs(polcoef(bigK,1))<0.0001,
 			printf("ERROR: K=%s is in incorrect form\n",bigK);
-			1/0;
+			error();
 		);
 		localMinResult[1]=bigK;
 		localMinResult[2]=bigL;
@@ -332,6 +332,7 @@ internal_get_logB1(bigR,bigT,b1,b3,d1,logXLB,nUB,dbg=0)={
 	);
 	
 	logB1=subst(logB1a*n*logX+logB1b*n+logB1c*logX+logB1d,n,nUB);
+	
 	logB1a=polcoef(logB1,1,logX);
 	logB1b=polcoef(logB1,0,logX);
 	logB1b=max(logB1b,0);

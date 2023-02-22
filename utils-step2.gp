@@ -4,15 +4,20 @@ read("lfl3\\utils-general.gp");
 
 \\ 17 Mar 2022
 get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,lamUB1,lamUB0,dbg=0)={
-	my(a,actB1,actB2,actB3,b1gA1,b1gA2,b1gA3,bigB,bigBCnst,c1,lamLB,nUB,rts,t);
+	my(a,actB1,actB2,actB3,al1Type,al2Type,al3Type,b1gA1,b1gA2,b1gA3,bigB,bigBCnst,c1,lamLB,nUB,rts,t);
 
-	if(type(al1)!="t_POL",
+	al1Type=type(al1);
+	al2Type=type(al2);
+	al3Type=type(al3);
+	\\ al1, al2 andd al3 are never used again here
+	
+	if(al1Type!="t_POL",
 		if(dbg>0,
 			print("get_matveev_ubnd(): swapping al1 and al2 to try to make al1 a polynomial");
 		);
-		t=al1;
-		al1=al2;
-		al2=t;
+		t=al1Type;
+		al1Type=al2Type;
+		al2Type=t;
 
 		t=absLogA1;
 		absLogA1=absLogA2;
@@ -26,13 +31,13 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 		b1=b2;
 		b2=t;
 	);
-	if(type(al1)!="t_POL",
+	if(al1Type!="t_POL",
 		if(dbg>0,
 			print("get_matveev_ubnd(): swapping al1 and al3 to try to make al1 a polynomial");
 		);
-		t=al1;
-		al1=al3;
-		al3=t;
+		t=al1Type;
+		al1Type=al3Type;
+		al3Type=t;
 
 		t=absLogA1;
 		absLogA1=absLogA3;
@@ -46,17 +51,14 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 		b1=b3;
 		b3=t;
 	);
-	if(type(al1)!="t_POL",
-		print("ERROR in get_matveev_ubnd(): type(al1)=",type(al1)," must be t_POL");
-		return([]);
+	if(al1Type!="t_POL",
+		error("ERROR in get_matveev_ubnd(): al1Type=",al1Type," must be t_POL");
 	);
-	if(type(al2)!="t_INT" && type(al2)!="t_FRAC" && type(al2)!="t_REAL" && type(al2)!="t_COMPLEX",
-		print("ERROR in get_matveev_ubnd(): type(al2)=",type(al2)," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
-		return([]);
+	if(al2Type!="t_INT" && al2Type!="t_FRAC" && al2Type!="t_REAL" && al2Type!="t_COMPLEX",
+		error("ERROR in get_matveev_ubnd(): al2Type=",al2Type," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
 	);
-	if(type(al3)!="t_INT" && type(al3)!="t_FRAC" && type(al3)!="t_REAL" && type(al3)!="t_COMPLEX",
-		print("ERROR in get_matveev_ubnd(): type(al3)=",type(al3)," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
-		return([]);
+	if(al3Type!="t_INT" && al3Type!="t_FRAC" && al3Type!="t_REAL" && al3Type!="t_COMPLEX",
+		error("ERROR in get_matveev_ubnd(): al3Type=",al3Type," must be t_INT, t_FRAC, t_COMPLEX or t_REAL");
 	);
 
 	if(dbg>0,
@@ -118,7 +120,7 @@ get_matveev_ubnd(bigD,chi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgt
 		print("b1=",b1,", b2=",b2,", bigA1=",bigA1,", bigA2=",bigA2);
 		print("b1-b2*bigA2/bigA1=",actB1-actB2*bigA2/bigA1);
 		print("likely need to increase logXLB");
-		1/0;
+		error();
 	);
 	rts=polrootsreal(p1);
 	\\print("b1 rts=",rts);
