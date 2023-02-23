@@ -405,13 +405,11 @@ alpha3_do_step4_calcs(step3Result,d,al1Type,absLogA1,hgtA1,al2Type,absLogA2,hgtA
 	);
 
 	\\ check our guess that using the b_i for which u_iUB is smallest is best
-	if(u2UB<u1UB && 1.001*nUB1<nUB2,
-		printf("BAD in alpha3_do_step4_calcs(): u2UB=%10.6f<u1UB=%10.6f, but nUB2=%10.6f>nUB1=%10.6f\n",u2UB,u1UB,nUB2,nUB1);
-		error();
+	if(dbg>0 && u2UB<u1UB && 1.001*nUB1<nUB2,
+		printf("ODD in alpha3_do_step4_calcs(): u2UB=%10.6f<u1UB=%10.6f, but nUB2=%10.6f>nUB1=%10.6f\n",u2UB,u1UB,nUB2,nUB1);
 	);
-	if(u1UB<u2UB && 1.001*nUB2<nUB1,
-		printf("BAD in alpha3_do_step4_calcs(): u1UB=%10.6f<u2UB=%10.6f, but nUB1=%10.6f>nUB2=%10.6f\n",u1UB,u2UB,nUB1,nUB2);
-		error();
+	if(dbg>0 && u1UB<u2UB && 1.001*nUB2<nUB1,
+		printf("ODD in alpha3_do_step4_calcs(): u1UB=%10.6f<u2UB=%10.6f, but nUB1=%10.6f>nUB2=%10.6f\n",u1UB,u2UB,nUB1,nUB2);
 	);
 	if(dbg>0,
 		printf("nUB1=%9.6e\n",nUB1);

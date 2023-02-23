@@ -5,87 +5,87 @@ read("lfl3\\kit-alpha1Variable.gp");
 \\ this is the Case I linear form in the 2006 Compositio paper of Yann, Maurice and Samir
 \\ but we have switched alpha_1 and alpha_2
 
-\\ L= 106, m= 21.0000, rho(3logs)=  5.5000, chi= 0.0800, K=  231548.100*logX, nonDegen log|Lambda|>-4.184151 e7*logX,
-\\ nonDegenNUB=8.368301 e7, rho(2logs)=101.100000, mu(2logs)= 0.604000, degenNUB1=    0.e-19, degenNUB2=6.622400 e7, degenNUB3=6.622400 e7, nUB=8.368301 e7, transB-b3
+\\ L= 108, m= 12.0000, rho(3logs)=  6.5000, chi= 0.0700, K=  229320.984*logX, nonDegen log|Lambda|>-4.635830 e7*logX,
+\\ nonDegenNUB=9.271660 e7, rho(2logs)=200.000000, mu(2logs)= 0.610000, degenNUB1=    0.e-19, degenNUB2=6.946463 e7, degenNUB3=6.946463 e7, nUB=9.271660 e7, eliminate-b3
 \\ 12 Feb 2023
 bms2_check_it1()={
 	my(bigL,chi,m,mu,rho2Logs,rho3Logs);
 	
-	bigL=106;
-	m=21.0;
-	rho2Logs=180;
-	rho3Logs=5.5;
-	chi=0.08;
+	bigL=108;
+	m=12.0;
+	rho2Logs=200;
+	rho3Logs=6.5;
+	chi=0.07;
 	mu=0.61;
 
 	actMinNUB=bms2_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,,2);
-	expMinNUB=83.68301*10^6;
+	expMinNUB=92.71660*10^6;
 	if(abs(actMinNUB/expMinNUB-1)>0.0001,
 		printf("FAIL: bms2_check_it1(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
 }
 
-\\ L=  59, m= 18.0000, rho(3logs)=  6.0000, chi= 0.1000, K=  135524.397*logX, nonDegen log|Lambda|>-1.432680 e7*logX,
-\\ nonDegenNUB=2.865360 e7, rho(2logs)=101.100000, mu(2logs)= 0.604000, degenNUB1=    0.e-19, degenNUB2=2.640695 e7, degenNUB3=2.640695 e7, nUB=2.865360 e7, transB-b3
+\\ L=  61, m= 13.0000, rho(3logs)=  6.5000, chi= 0.0850, K=  140317.547*logX, nonDegen log|Lambda|>-1.602145 e7*logX,
+\\ nonDegenNUB=3.204290 e7, rho(2logs)=200.000000, mu(2logs)= 0.610000, degenNUB1=    0.e-19, degenNUB2=3.186990 e7, degenNUB3=3.186990 e7, nUB=3.204290 e7, eliminate-b3
 \\ second iteration values
 \\ 12 Feb 2023
 bms2_check_it2()={
 	my(bigL,chi,m,mu,nUB,rho2Logs,rho3Logs);
 	
-	bigL=59;
-	m=18.0;
-	rho2Logs=180;
-	rho3Logs=6.0;
-	chi=0.1;
+	bigL=61;
+	m=13.0;
+	rho2Logs=200;
+	rho3Logs=6.5;
+	chi=0.085;
 	mu=0.61;
-	nUB=84*10^6;
+	nUB=93*10^6;
 
 	actMinNUB=bms2_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,nUB,2);
-	expMinNUB=28.65360*10^6;
+	expMinNUB=32.04290*10^6;
 	if(abs(actMinNUB/expMinNUB-1)>0.0001,
 		printf("FAIL: bms2_check_it1(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
 }
 
-\\ L=  59, m= 18.0000, rho(3logs)=  5.7500, chi= 0.1000, K=  122602.952*logX, nonDegen log|Lambda|>-1.265297 e7*logX,
-\\ nonDegenNUB=2.530593 e7, rho(2logs)=150.000000, mu(2logs)= 0.604000, degenNUB1=    0.e-19, degenNUB2=2.346161 e7, degenNUB3=2.346161 e7, nUB=2.530593 e7, transB-b3
+\\ L=  57, m= 16.5000, rho(3logs)=  6.0000, chi= 0.0875, K=  139152.681*logX, nonDegen log|Lambda|>-1.421170 e7*logX,
+\\ nonDegenNUB=2.842341 e7, rho(2logs)=200.000000, mu(2logs)= 0.610000, degenNUB1=    0.e-19, degenNUB2=2.791274 e7, degenNUB3=2.791274 e7, nUB=2.842341 e7, eliminate-b3
 \\ third iteration values
 \\ 12 Feb 2023
 bms2_check_it3()={
 	my(bigL,chi,m,mu,nUB,rho2Logs,rho3Logs);
 	
-	bigL=59;
-	m=18.0;
-	rho2Logs=180;
-	rho3Logs=5.75;
-	chi=0.0975;
+	bigL=57;
+	m=16.5;
+	rho2Logs=200;
+	rho3Logs=6.0;
+	chi=0.0875;
 	mu=0.61;
-	nUB=29*10^6;
+	nUB=33*10^6;
 
 	actMinNUB=bms2_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,nUB,2);
-	expMinNUB=25.30593*10^6;
+	expMinNUB=28.42341*10^6;
 	if(abs(actMinNUB/expMinNUB-1)>0.0001,
 		printf("FAIL: bms2_check_it3(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
 }
 
-\\ L=  57, m= 19.0000, rho(3logs)=  5.7500, chi= 0.1000, K=  125027.304*logX, nonDegen log|Lambda|>-1.246577 e7*logX,
-\\ nonDegenNUB=2.493154 e7, rho(2logs)=150.000000, mu(2logs)= 0.604000, degenNUB1=    0.e-19, degenNUB2=2.346161 e7, degenNUB3=2.346161 e7, nUB=2.493154 e7, transB-b3
+\\ L=  55, m= 15.5000, rho(3logs)=  6.2500, chi= 0.0875, K=  138145.397*logX, nonDegen log|Lambda|>-1.392395 e7*logX,
+\\ nonDegenNUB=2.784790 e7, rho(2logs)=250.000000, mu(2logs)= 0.610000, degenNUB1=    0.e-19, degenNUB2=2.749874 e7, degenNUB3=2.749874 e7, nUB=2.784790 e7, eliminate-b3
 \\ fourth iteration values
 \\ 12 Feb 2023
 bms2_check_it4()={
 	my(actMinNUB,bigL,chi,expMinNUB,m,mu,nUB,rho2Logs,rho3Logs);
 	
-	bigL=57;
-	m=19.0;
-	rho2Logs=180;
-	rho3Logs=5.75;
-	chi=0.1;
-	nUB=25.4*10^6;
-	mu=0.604;
+	bigL=55;
+	m=15.5;
+	rho2Logs=250;
+	rho3Logs=6.25;
+	chi=0.0875;
+	mu=0.61;
+	nUB=28.5*10^6;
 
 	actMinNUB=bms2_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,nUB,2);
-	expMinNUB=24.93154*10^6;
+	expMinNUB=27.84790*10^6;
 	if(abs(actMinNUB/expMinNUB-1)>0.0001,
 		printf("FAIL: bms2_check_it4(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
@@ -96,15 +96,15 @@ bms2_check_it4()={
 bms2_search_it1(dbg=0)={
 	my(bigLLB,bigLUB,chiLB,chiUB,mLB,mUB,rho2LB,rho2UB,rho3LB,rho3UB);
 
-	bigLLB=30;
+	bigLLB=50;
 	bigLUB=200;
-	mLB=10;
+	mLB=5;
 	mUB=mLB+20;
 	rho3LB=3;
 	rho3UB=rho3LB+10;
-	chiLB=0.04;
-	chiUB=chiLB+0.2;
-	rho2LB=80;
+	chiLB=0.02;
+	chiUB=chiLB+0.1;
+	rho2LB=100;
 	rho2UB=rho2LB+100;
 
 	bms2_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,,dbg);
@@ -120,15 +120,15 @@ bms2_search_it2(nUBInit,dbg=0)={ \\use nUBInit=2.03*10^7
 		return();
 	);
 
-	bigLLB=30;
+	bigLLB=40;
 	bigLUB=200;
 	mLB=5;
 	mUB=mLB+20;
-	rho3LB=2;
+	rho3LB=3;
 	rho3UB=rho3LB+10;
-	chiLB=0.05;
-	chiUB=chiLB+0.2;
-	rho2LB=80;
+	chiLB=0.02;
+	chiUB=chiLB+0.1;
+	rho2LB=100;
 	rho2UB=rho2LB+100;
 
 	bms2_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,nUBInit,dbg);
@@ -144,15 +144,15 @@ bms2_search_it3(nUBInit,dbg=0)={ \\use nUBInit=7.98*10^6
 		return();
 	);
 
-	bigLLB=30;
-	bigLUB=120;
-	mLB=11;
+	bigLLB=40;
+	bigLUB=150;
+	mLB=9;
 	mUB=mLB+10;
 	rho3LB=4;
 	rho3UB=rho3LB+5;
-	chiLB=0.07;
+	chiLB=0.05;
 	chiUB=chiLB+0.05;
-	rho2LB=80;
+	rho2LB=100;
 	rho2UB=rho2LB+100;
 
 	bms2_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,nUBInit,dbg);
@@ -168,15 +168,15 @@ bms2_search_it4(nUBInit,dbg=0)={ \\use nUBInit=7.28*10^6
 		return();
 	);
 
-	bigLLB=30;
-	bigLUB=120;
-	mLB=11;
+	bigLLB=40;
+	bigLUB=150;
+	mLB=10;
 	mUB=mLB+10;
 	rho3LB=4;
 	rho3UB=rho3LB+5;
-	chiLB=0.07;
+	chiLB=0.05;
 	chiUB=chiLB+0.05;
-	rho2LB=80;
+	rho2LB=150;
 	rho2UB=rho2LB+100;
 
 	bms2_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,nUBInit,dbg);
@@ -186,7 +186,7 @@ bms2_search_it4(nUBInit,dbg=0)={ \\use nUBInit=7.28*10^6
 \\ (they are bounds for the mu in Theorem 2 of Laurent's 2008 paper)
 \\ 3 July 2022
 bms2_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,muLB=0,muUB=0,nUBInit=0,dbg=0)={
-	my(a1,a2,a3,absLogA1,absLogA2,absLogA2a,absLogA2b,absLogA3,al1,al2,al3,areBoundsOK,b1,b2,b3,bigD,bigK,chiStep,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logW,logXLB,matveevChi,minNUB,mStep,nDegenUB,nLB,nNonDegenUB,nUB,rho3Step,startTime,step3Result);
+	my(a1,a2,a3,absLogA1,absLogA2,absLogA2a,absLogA2b,absLogA3,al1,al2,al3,areBoundsOK,b1,b2,b3,bigD,chiStep,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logW,logXLB,matveevChi,minNUB,mStep,nLB,rho3Step,startTime,step3Result);
 
 	startTime=getwalltime();
 	\\ bigD=[Q(al_1,al_2,al_3):Q] -- used for Matveev's bounds
@@ -205,6 +205,7 @@ bms2_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2U
 	absLogA2a=abs(log(al2));
 	absLogA2b=abs(log(-al2));
 	absLogA2=min(absLogA2a,absLogA2b);
+	print("absLogA2=",absLogA2);
 	
 	al3=-1;
 	hgtA3=0;
@@ -248,9 +249,9 @@ bms2_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2U
 			\\if(bigL%10==0,print("L=",bigL));
 			forstep(m=mLB,mUB,mStep,
 				forstep(rho3=rho3LB,rho3UB,rho3Step,
-					a1=rho3*Pi/2+logX;
-					a2=0.723*rho3;
-					a3=rho3*Pi;
+					a1=rho3*absLogA1+2*d*hgtA1;
+					a2=rho3*absLogA2+2*d*hgtA2;
+					a3=rho3*absLogA3+2*d*hgtA3;
 					step3Result=alpha1_do_step3(step3Result,d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hgtA2,al3,a3,absLogA3,hgtA3,b1,b2,b3,chi,bigL,m,rho3,nUBInit,logXLB,nLB,lamUB1,lamUB0,dbg);
 				);
 			);
