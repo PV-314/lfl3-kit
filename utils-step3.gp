@@ -167,7 +167,7 @@ get_eqn42(a1,a2,a3,bigK,bigL,bigR,bigS,bigT,d,rho,logBUB,nUB,logXLB,dbg=0)={
 	my(eqn42,eqn42LHS,eqn42Rem,eqn42RHS,eqn42RHS1,eqn42RHS2,eqn42RHS3,eqn42X0,eqn42X1,gDenom,gNumer);
 	
 	\\ miw matrix lhs with K_0=2(K-1):
-	eqn42LHS=(bigK*bigL/2+bigL/2-0.37*bigK-1)*log(rho);
+	eqn42LHS=(bigK*bigL/2+bigL/2-0.37*bigK-2)*log(rho);
 
 	gDenom=12*bigR*bigS*bigT/logX/logX;
 	gDenom=subst(gDenom,logX,logXLB)*logX*logX;
