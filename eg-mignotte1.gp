@@ -5,77 +5,82 @@ read("lfl3\\kit-alpha1Variable.gp");
 \\ search for parameter choice for Example 1 in Mignotte's original kit:
 \\ for the diophantine equation x^n-2^\alpha*5^\beta*y^n = \pm 1
 \\ where n \geq 3 is prime, \alpha=1,2,3, 0 \leq \beta<n
-\\ \Lamnda = n \log (x/y)-\alpha \log(2)-\beta \log(5)
+\\ \Lambda = n \log (x/y)-\alpha \log(2)-\beta \log(5)
+\\ this example actually comes from equation (2.7) in Bennett, Gyory, Mignotte and Pinter
+\\ Comp. Math. (2006)
+\\ see the proof of their Prop 3.5.
 
-\\ L=  81, m= 10.5000, rho(3logs)=  8.5000, chi= 0.8000, K=  179708.542*logX, nonDegen log|Lambda|>-3.115164 e7*logX,
-\\ nonDegenNUB=3.115164 e7, rho(2logs)= 7.800000, mu(2logs)= 0.610000, degenNUB1=    0.e-19, degenNUB2=3.074700 e7, degenNUB3=6.337995 e7, nUB=3.115164 e7, transB-b2
-\\ 4 Jan 2022
+\\ L=  75, m=  7.5000, rho(3logs)= 10.5000, chi= 0.7750, K=  166371.103*logX,
+\\ nonDegen log|Lambda|>-2.934007 e7*logX, nonDegenNUB=2.934007 e7,
+\\ rho(2logs)= 8.600000, mu(2logs)= 0.610000, degenNUB1=    0.e-19, degenNUB2=2.848218 e7, degenNUB3=5.772238 e7,
+\\ nUB=2.934007 e7, eliminate-b2
 eg1_check_it1()={
 	my(bigL,chi,m,mu,rho2Logs,rho3Logs);
 	
-	bigL=81;
-	m=10.5;
-	rho2Logs=7.8;
-	rho3Logs=8.5;
-	chi=0.8;
+	bigL=75;
+	m=7.5;
+	rho2Logs=8.6;
+	rho3Logs=10.5;
+	chi=0.775;
 	mu=0.61;
 
 	actMinNUB=eg1_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,,2);
-	expMinNUB=31.15164*10^6;
+	expMinNUB=29.34007*10^6;
 	if(abs(actMinNUB/expMinNUB-1)>0.0001,
 		printf("FAIL: eg1_check_it1(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
 }
 
-\\ L=  53, m= 10.0000, rho(3logs)=  9.0000, chi= 1.1250, K=  124475.071*logX,
-\\ nonDegen log|Lambda|>-1.449548 e7*logX, nonDegenNUB=1.449548 e7, rho(2logs)= 7.800000, mu(2logs)= 0.610000, degenNUB1=    0.e-19, degenNUB2=1.407796 e7, degenNUB3=2.895016 e7, nUB=1.449548 e7, eliminate-b2
-\\ 4 Jan 2022 (updated with above on 27 Feb 2022)
+\\ L=  56, m= 10.0000, rho(3logs)=  8.5000, chi= 1.0750, K=  112973.943*logX,
+\\ nonDegen log|Lambda|>-1.353922 e7*logX, nonDegenNUB=1.353922 e7,
+\\ rho(2logs)= 8.200000, mu(2logs)= 0.610000, degenNUB1=    0.e-19, degenNUB2=1.259627 e7, degenNUB3=2.562258 e7,
+\\ nUB=1.353922 e7, eliminate-b2
 eg1_check_it2()={
 	my(bigL,chi,m,mu,nUB,rho2Logs,rho3Logs);
 
-	bigL=53;
+	bigL=56;
 	m=10.0;
-	rho2Logs=7.8;
-	rho3Logs=9.0;
-	chi=1.125;
+	rho2Logs=8.2;
+	rho3Logs=8.5;
+	chi=1.075;
 	mu=0.61;
-	nUB=32*10^6;
+	nUB=30*10^6;
 
 	actMinNUB=eg1_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,nUB,2);
-	expMinNUB=14.49548*10^6;
+	expMinNUB=13.53922*10^6;
 	if(abs(actMinNUB/expMinNUB-1)>0.0001,
 		printf("FAIL: eg1_check_it2(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
 }
 
-\\ L=  53, m= 11.2500, rho(3logs)=  8.2500, chi= 1.1500, K=  119255.328*logX, nonDegen log|Lambda|>-1.333767 e7*logX,
-\\ nonDegenNUB=1.333767 e7, rho(2logs)= 7.800000, mu(2logs)= 0.610000, degenNUB1=    0.e-19, degenNUB2=1.290824 e7, degenNUB3=2.652192 e7, nUB=1.333767 e7, transB-b2
-\\ 4 Jan 2022
+\\ L=  53, m= 11.7500, rho(3logs)=  8.0000, chi= 1.0800, K=  112742.491*logX,
+\\ nonDegen log|Lambda|>-1.242540 e7*logX, nonDegenNUB=1.242540 e7,
+\\ rho(2logs)= 8.100000, mu(2logs)= 0.610000, degenNUB1=    0.e-19, degenNUB2=1.233182 e7, degenNUB3=2.489577 e7,
+\\ nUB=1.242540 e7, eliminate-b2
 eg1_check_it3()={
 	my(bigL,chi,m,mu,nUB,rho2Logs,rho3Logs);
 
 	bigL=53;
-	m=11.25;
-	rho2Logs=7.8;
-	rho3Logs=8.25;
-	chi=1.15;
+	m=11.75;
+	rho2Logs=8.1;
+	rho3Logs=8.0;
+	chi=1.08;
 	mu=0.61;
-	nUB=15*10^6;
+	nUB=14*10^6;
 
 	actMinNUB=eg1_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,nUB,2);
-	expMinNUB=13.33767*10^6;
+	expMinNUB=12.42540*10^6;
 	if(abs(actMinNUB/expMinNUB-1)>0.0001,
 		printf("FAIL: eg1_check_it3(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
 }
 
-\\ 4 Jan 2022
 eg1_search_it1(dbg=0)={
 my(a1,a2,a3,absLogA1,absLogA2,absLogA3,b1,b2,b3,bigD,bigK,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logW,logXLB,m,matveevChi,minNUB,nDegenUB,nLB,nNonDegenUB,nUB,rho,val,w);
 	my(bigLLB,bigLUB,chiLB,chiUB,mLB,mUB,rho2LB,rho2UB,rho3LB,rho3UB);
 
 	bigLLB=50;
-	bigLUB=200;
+	bigLUB=150;
 	mLB=5;
 	mUB=mLB+10;
 	rho3LB=5;
@@ -87,7 +92,6 @@ my(a1,a2,a3,absLogA1,absLogA2,absLogA3,b1,b2,b3,bigD,bigK,d,hgtA1,hgtA2,hgtA3,la
 	eg1_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,,dbg);
 }
 
-\\ 4 Jan 2022 (27 Feb 2022: should use nUBInit=32*10^6 -- upper bound from iteration 1)
 eg1_search_it2(nUBInit,dbg=0)={
 	my(bigLLB,bigLUB,chiLB,chiUB,mLB,mUB,rho2LB,rho2UB,rho3LB,rho3UB);
 
@@ -101,14 +105,13 @@ eg1_search_it2(nUBInit,dbg=0)={
 	mUB=mLB+10;
 	rho3LB=5;
 	rho3UB=rho3LB+10;
-	chiLB=0.75;
+	chiLB=0.7;
 	chiUB=chiLB+0.5;
 	rho2LB=7;
 	rho2UB=rho2LB+4;
 	eg1_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,nUBInit,dbg);
 }
 
-\\ 4 Jan 2022 (should use nUBInit=15*10^6 -- upper bound from iteration 2)
 eg1_search_it3(nUBInit,dbg=0)={
 	my(bigLLB,bigLUB,chiLB,chiUB,mLB,mUB,rho2LB,rho2UB,rho3LB,rho3UB);
 
@@ -117,15 +120,15 @@ eg1_search_it3(nUBInit,dbg=0)={
 		return();
 	);
 	bigLLB=30;
-	bigLUB=150;
-	mLB=8;
+	bigLUB=100;
+	mLB=10;
 	mUB=mLB+5;
 	rho3LB=5;
 	rho3UB=rho3LB+5;
-	chiLB=0.8;
-	chiUB=chiLB+0.5;
-	rho2LB=7;
-	rho2UB=rho2LB+4;
+	chiLB=1.0;
+	chiUB=chiLB+0.2;
+	rho2LB=6.5;
+	rho2UB=rho2LB+2;
 	eg1_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,nUBInit,dbg);
 }
 
@@ -150,15 +153,14 @@ eg1_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB
 	b1=n;
 	b2=3; \\ alpha=1, 2 or 3
 	b3=n-1; \\ 0 \leq beta<n
-	logXLB=floor(nLB/2600-1.5);
+	nLB=10*10^6; \\ assumption at the start of proof of Theorem 6.3
+	logXLB=nLB/3106.0-0.01; \\ from Lemma 3.4 of Comp. Math. paper
 	if(dbg>0,
 		printf("calced logXLB=%5d\n",logXLB);
 	);
-	logXLB=380;
-	nLB=10^6; \\ assumption at the start of proof of Theorem 6.3
 
 	hgtA1=logX;
-	absLogA1=5.0001; \\ from Step 3 after defns of a_i's
+	absLogA1=log(5); \\ from Step 3 after defns of a_i's
 	hgtA2=log(2);
 	absLogA2=abs(log(al2));
 	hgtA3=log(5);
