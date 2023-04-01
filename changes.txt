@@ -53,3 +53,7 @@ this was due to all the logging produced when doing search for best \varrho and 
 ==========
 improve error messages and error handling
 
+2023-03-31
+==========
+added new file, eg-bgmp-eqn29.gp, for equation (2.9) in proof of Prop 3.5
+of Bennett, Gyory, Mignotte and Pinter's Comp. Math (2006) paper.
