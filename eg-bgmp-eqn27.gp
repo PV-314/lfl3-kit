@@ -1,19 +1,18 @@
-\\ \r lfl3\eg-mignotte1.gp
+\\ \r lfl3\eg-bgmp-eqn27.gp
 
 read("lfl3\\kit-alpha1Variable.gp");
 
-\\ search for parameter choice for Example 1 in Mignotte's original kit:
+\\ this example comes from equation (2.7) in Bennett, Gyory, Mignotte and Pinter
+\\ Comp. Math. (2006)
 \\ for the diophantine equation x^n-2^\alpha*5^\beta*y^n = \pm 1
 \\ where n \geq 3 is prime, \alpha=1,2,3, 0 \leq \beta<n
 \\ \Lambda = n \log (x/y)-\alpha \log(2)-\beta \log(5)
-\\ this example actually comes from equation (2.7) in Bennett, Gyory, Mignotte and Pinter
-\\ Comp. Math. (2006)
 
-\\ L=  75, m=  7.5000, rho(3logs)= 10.5000, chi= 0.7750, K=  166371.103*logX,
+\\ L=  75, m=  7.5000, rho(3logs)= 10.5000, chi= 0.7750, K=  166371.104*logX,
 \\ nonDegen log|Lambda|>-2.934007 e7*logX, nonDegenNUB=2.934007 e7,
-\\ rho(2logs)= 8.600000, mu(2logs)= 0.610000, degenNUB1=    0.e-19, degenNUB2=2.848218 e7, degenNUB3=5.772238 e7,
-\\ nUB=2.934007 e7, eliminate-b2
-eg1_check_it1()={
+\\ rho(2logs)= 8.600000, mu(2logs)= 0.610000, degenNUB1=    0.e-19,
+\\ degenNUB2=2.848218 e7, degenNUB3=5.772238 e7, nUB=2.934007 e7, eliminate-b2
+eg27_check_it1()={
 	my(bigL,chi,m,mu,rho2Logs,rho3Logs);
 	
 	bigL=75;
@@ -23,18 +22,18 @@ eg1_check_it1()={
 	chi=0.775;
 	mu=0.61;
 
-	actMinNUB=eg1_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,,2);
+	actMinNUB=eg27_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,,2);
 	expMinNUB=29.34007*10^6;
 	if(abs(actMinNUB/expMinNUB-1)>0.0001,
-		printf("FAIL: eg1_check_it1(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
+		printf("FAIL: eg27_check_it1(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
 }
 
 \\ L=  56, m= 10.0000, rho(3logs)=  8.5000, chi= 1.0750, K=  112973.943*logX,
 \\ nonDegen log|Lambda|>-1.353922 e7*logX, nonDegenNUB=1.353922 e7,
-\\ rho(2logs)= 8.200000, mu(2logs)= 0.610000, degenNUB1=    0.e-19, degenNUB2=1.259627 e7, degenNUB3=2.562258 e7,
-\\ nUB=1.353922 e7, eliminate-b2
-eg1_check_it2()={
+\\ rho(2logs)= 8.200000, mu(2logs)= 0.610000, degenNUB1=    0.e-19,
+\\ degenNUB2=1.259627 e7, degenNUB3=2.562258 e7, nUB=1.353922 e7, eliminate-b2
+eg27_check_it2()={
 	my(bigL,chi,m,mu,nUB,rho2Logs,rho3Logs);
 
 	bigL=56;
@@ -45,18 +44,18 @@ eg1_check_it2()={
 	mu=0.61;
 	nUB=30*10^6;
 
-	actMinNUB=eg1_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,nUB,2);
+	actMinNUB=eg27_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,nUB,2);
 	expMinNUB=13.53922*10^6;
 	if(abs(actMinNUB/expMinNUB-1)>0.0001,
-		printf("FAIL: eg1_check_it2(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
+		printf("FAIL: eg27_check_it2(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
 }
 
 \\ L=  53, m= 11.7500, rho(3logs)=  8.0000, chi= 1.0800, K=  112742.491*logX,
 \\ nonDegen log|Lambda|>-1.242540 e7*logX, nonDegenNUB=1.242540 e7,
-\\ rho(2logs)= 8.100000, mu(2logs)= 0.610000, degenNUB1=    0.e-19, degenNUB2=1.233182 e7, degenNUB3=2.489577 e7,
-\\ nUB=1.242540 e7, eliminate-b2
-eg1_check_it3()={
+\\ rho(2logs)= 8.100000, mu(2logs)= 0.610000, degenNUB1=    0.e-19,
+\\ degenNUB2=1.233182 e7, degenNUB3=2.489577 e7, nUB=1.242540 e7, eliminate-b2
+eg27_check_it3()={
 	my(bigL,chi,m,mu,nUB,rho2Logs,rho3Logs);
 
 	bigL=53;
@@ -67,14 +66,14 @@ eg1_check_it3()={
 	mu=0.61;
 	nUB=14*10^6;
 
-	actMinNUB=eg1_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,nUB,2);
+	actMinNUB=eg27_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,nUB,2);
 	expMinNUB=12.42540*10^6;
 	if(abs(actMinNUB/expMinNUB-1)>0.0001,
-		printf("FAIL: eg1_check_it3(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
+		printf("FAIL: eg27_check_it3(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
 }
 
-eg1_search_it1(dbg=0)={
+eg27_search_it1(dbg=0)={
 	my(bigLLB,bigLUB,chiLB,chiUB,mLB,mUB,rho2LB,rho2UB,rho3LB,rho3UB);
 
 	bigLLB=50;
@@ -87,10 +86,10 @@ eg1_search_it1(dbg=0)={
 	chiUB=chiLB+0.5;
 	rho2LB=6;
 	rho2UB=rho2LB+4;
-	eg1_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,,dbg);
+	eg27_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,,dbg);
 }
 
-eg1_search_it2(nUBInit,dbg=0)={
+eg27_search_it2(nUBInit,dbg=0)={
 	my(bigLLB,bigLUB,chiLB,chiUB,mLB,mUB,rho2LB,rho2UB,rho3LB,rho3UB);
 
 	if(nUBInit<0.00001,
@@ -107,10 +106,10 @@ eg1_search_it2(nUBInit,dbg=0)={
 	chiUB=chiLB+0.5;
 	rho2LB=7;
 	rho2UB=rho2LB+4;
-	eg1_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,nUBInit,dbg);
+	eg27_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,nUBInit,dbg);
 }
 
-eg1_search_it3(nUBInit,dbg=0)={
+eg27_search_it3(nUBInit,dbg=0)={
 	my(bigLLB,bigLUB,chiLB,chiUB,mLB,mUB,rho2LB,rho2UB,rho3LB,rho3UB);
 
 	if(nUBInit<0.00001,
@@ -118,21 +117,21 @@ eg1_search_it3(nUBInit,dbg=0)={
 		return();
 	);
 	bigLLB=30;
-	bigLUB=100;
-	mLB=10;
+	bigLUB=80;
+	mLB=8;
 	mUB=mLB+5;
 	rho3LB=5;
 	rho3UB=rho3LB+5;
 	chiLB=1.0;
 	chiUB=chiLB+0.2;
-	rho2LB=6.5;
+	rho2LB=7.0;
 	rho2UB=rho2LB+2;
-	eg1_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,nUBInit,dbg);
+	eg27_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,nUBInit,dbg);
 }
 
 \\ only set muLB and muUB when using "check" functions above, not when using "search" functions
 \\ (they are bounds for the mu in Theorem 2 of Laurent's 2008 paper)
-eg1_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,muLB=0,muUB=0,nUBInit=0,dbg=0)={
+eg27_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,muLB=0,muUB=0,nUBInit=0,dbg=0)={
 	my(a1,a2,a3,absLogA1,absLogA2,absLogA3,al1,al2,al3,areBoundsOK,b1,b2,b3,bigD,bigK,chiStep,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logW,logXLB,matveevChi,minNUB,mStep,nDegenUB,nLB,nNonDegenUB,nUB,rho3Step,startTime,step3Result);
 
 	startTime=getwalltime();
@@ -173,7 +172,7 @@ eg1_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB
 		\\print("b1=",b1,", b2=",b2,b3,", logXLB=",logXLB,", nLB=",nLB,", lamUB1=",lamUB1,", lamUB0=",lamUB0,", dbg=",dbg);
 		nUBInit=get_matveev_ubnd(bigD,matveevChi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,lamUB1,lamUB0,dbg);
 		printf("nUBInit=%9.6e\n",nUBInit);
-		printf("eg1_search_general(): calculated nUBInit=%9.6e\n",nUBInit);
+		printf("eg27_search_general(): calculated nUBInit=%9.6e\n",nUBInit);
 	);
 	minNUB=nUBInit;
 	printf("used nUBInit=%9.6e\n",nUBInit);
