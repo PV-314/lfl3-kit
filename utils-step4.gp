@@ -621,8 +621,7 @@ step4_update_minNUB(step3Result,minNUB,step4Result,dbg=0)={
 	nUB=max(minNDegenUB,nNonDegenUB);
 	if(minNDegenUB>0 && nNonDegenUB>0 && nUB<minNUB,
 		localMinNUB=nUB;
-		\\print(bigL,", m=",m,rho,chi,", bigK=",bigK,", more stuff=",-bigK*bigL*log(rho3Logs),nNonDegenUB,step4Result[2],step4Result[4],step4Result[6],nUB,minB);
-		printf("L=%4d, m=%8.4f, rho(3logs)=%8.4f, chi=%7.4f, K=%12.3f*logX, nonDegen log|Lambda|>%9.6e*logX, nonDegenNUB=%10.6e, rho(2logs)=%9.6f, mu(2logs)=%9.6f, degenNUB1=%10.6e, degenNUB2=%10.6e, degenNUB3=%10.6e, nUB=%10.6e, eliminate-%s\n",bigL,m,rho3Logs,chi,polcoef(bigK,1),-polcoef(bigK,1)*bigL*log(rho3Logs),nNonDegenUB,minRho2Logs,minMu,step4Result[1],step4Result[4],step4Result[7],nUB,minB);
+		printf("L=%4d, m=%8.4f, rho(3logs)=%7.4f, chi=%7.4f, K=%12.3f*logX, nonDegen log|Lambda|>%9.6e*logX, nonDegenNUB=%10.6e, rho(2logs)=%7.4f, mu(2logs)=%7.4f, degenNUB1=%10.6e, degenNUB2=%10.6e, degenNUB3=%10.6e, nUB=%10.6e, eliminate-%s\n",bigL,m,rho3Logs,chi,polcoef(bigK,1),-polcoef(bigK,1)*bigL*log(rho3Logs),nNonDegenUB,minRho2Logs,minMu,step4Result[1],step4Result[4],step4Result[7],nUB,minB);
 	);
 	return(localMinNUB);
 }

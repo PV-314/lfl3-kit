@@ -57,3 +57,12 @@ improve error messages and error handling
 ==========
 added new file, eg-bgmp-eqn29.gp, for equation (2.9) in proof of Prop 3.5
 of Bennett, Gyory, Mignotte and Pinter's Comp. Math (2006) paper.
+
+2023-06-02
+==========
+added new files, eg-bgmp-eqn28.gp and eg-bgmp-eqn210.gp, for equations (2.8) and
+(2.10) in proof of Prop 3.5 of Bennett, Gyory, Mignotte and Pinter's Comp. Math (2006) paper.
+
+renamed eg-mignotte1.gp to eg-bgmp-eqn27.gp for equation (2.7) in proof of
+Prop 3.5 of Bennett, Gyory, Mignotte and Pinter's Comp. Math (2006) paper.
+They are the same.

@@ -1,86 +1,84 @@
-\\ \r lfl3\eg-bgmp-eqn29.gp
+\\ \r lfl3\eg-bgmp-eqn28.gp
 
 read("lfl3\\kit-alpha1Variable.gp");
 
-\\ this example comes from equation (2.9) in Bennett, Gyory, Mignotte and Pinter
+\\ this example comes from equation (2.8) in Bennett, Gyory, Mignotte and Pinter
 \\ Comp. Math. (2006)
-\\ for the diophantine equation 2^\alpha*x^n-5^\beta*y^n = \pm 1
-\\ where n \geq 3 is prime, 1 \leq \alpha \leq 3, 1 \leq \beta<n
-\\ \Lamnda = \alpha \log(p)-n \log (y/x)-\beta \log(q)
-\\ where p=2 and q=5
-\\ \Lambda = n \log (x/y)-\alpha \log(2)-\beta \log(5)
+\\ for the diophantine equation x^n-2^\alpha*7^\beta*y^n = \pm 1
+\\ where n \geq 3 is prime, \alpha=1,2,3, 0 \leq \beta<n
+\\ \Lambda = n \log (x/y)-\alpha \log(2)-\beta \log(7)
 
-\\ L=  85, m= 13.0000, rho(3logs)=  7.5000, chi= 0.7750, K=  235935.394*logX,
-\\ nonDegen log|Lambda|>-4.040789 e7*logX, nonDegenNUB=4.040789 e7,
-\\ rho(2logs)= 7.000000, mu(2logs)= 0.610000, degenNUB1=    0.e-19, degenNUB2=4.002593 e7, degenNUB3=8.168069 e7,
-\\ nUB=4.040789 e7, eliminate-b2
-eg29_check_it1()={
+\\ L=  78, m=  8.0000, rho(3logs)= 10.0000, chi= 0.8750, K=  204233.883*logX,
+\\ nonDegen log|Lambda|>-3.668074 e7*logX, nonDegenNUB=3.668074 e7,
+\\ rho(2logs)= 8.400000, mu(2logs)= 0.610000, degenNUB1=    0.e-19,
+\\ degenNUB2=3.591789 e7, degenNUB3=7.291183 e7, nUB=3.668074 e7, eliminate-b2
+eg28_check_it1()={
 	my(bigL,chi,m,mu,rho2Logs,rho3Logs);
 	
-	bigL=85;
-	m=13;
-	rho2Logs=7.0;
-	rho3Logs=7.5;
-	chi=0.775;
+	bigL=78;
+	m=8.0;
+	rho2Logs=8.4;
+	rho3Logs=10.0;
+	chi=0.875;
 	mu=0.61;
 
-	actMinNUB=eg29_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,,2);
-	expMinNUB=40.40789*10^6;
+	actMinNUB=eg28_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,,2);
+	expMinNUB=36.68074*10^6;
 	if(abs(actMinNUB/expMinNUB-1)>0.0001,
-		printf("FAIL: eg29_check_it1(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
+		printf("FAIL: eg28_check_it1(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
 }
 
-\\ L=  56, m= 12.0000, rho(3logs)=  8.0000, chi= 1.0750, K=  163891.508*logX,
-\\ nonDegen log|Lambda|>-1.908496 e7*logX, nonDegenNUB=1.908496 e7,
-\\ rho(2logs)= 7.000000, mu(2logs)= 0.610000, degenNUB1=    0.e-19, degenNUB2=1.863687 e7, degenNUB3=3.826044 e7,
-\\ nUB=1.908496 e7, eliminate-b2
-eg29_check_it2()={
+\\ L=  55, m=  9.5000, rho(3logs)=  9.0000, chi= 1.2000, K=  141290.584*logX,
+\\ nonDegen log|Lambda|>-1.707459 e7*logX, nonDegenNUB=1.707459 e7,
+\\ rho(2logs)= 8.400000, mu(2logs)= 0.610000, degenNUB1=    0.e-19,
+\\ degenNUB2=1.664643 e7, degenNUB3=3.375341 e7, nUB=1.707459 e7, eliminate-b2
+eg28_check_it2()={
 	my(bigL,chi,m,mu,nUB,rho2Logs,rho3Logs);
 
-	bigL=56;
+	bigL=55;
+	m=9.5;
+	rho2Logs=8.4;
+	rho3Logs=9.0;
+	chi=1.2;
+	mu=0.61;
+	nUB=37*10^6;
+
+	actMinNUB=eg28_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,nUB,2);
+	expMinNUB=17.07459*10^6;
+	if(abs(actMinNUB/expMinNUB-1)>0.0001,
+		printf("FAIL: eg28_check_it2(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
+	);
+}
+
+\\ L=  54, m= 12.0000, rho(3logs)=  8.0000, chi= 1.2300, K=  141891.377*logX,
+\\ nonDegen log|Lambda|>-1.593296 e7*logX, nonDegenNUB=1.593296 e7,
+\\ rho(2logs)= 8.100000, mu(2logs)= 0.610000, degenNUB1=    0.e-19,
+\\ degenNUB2=1.581196 e7, degenNUB3=3.220796 e7, nUB=1.593296 e7, eliminate-b2
+eg28_check_it3()={
+	my(bigL,chi,m,mu,nUB,rho2Logs,rho3Logs);
+
+	bigL=54;
 	m=12.0;
-	rho2Logs=7.0;
+	rho2Logs=8.1;
 	rho3Logs=8.0;
-	chi=1.075;
+	chi=1.23;
 	mu=0.61;
-	nUB=41*10^6;
+	nUB=18*10^6;
 
-	actMinNUB=eg29_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,nUB,2);
-	expMinNUB=19.08496*10^6;
+	actMinNUB=eg28_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,nUB,2);
+	expMinNUB=15.93296*10^6;
 	if(abs(actMinNUB/expMinNUB-1)>0.0001,
-		printf("FAIL: eg29_check_it2(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
+		printf("FAIL: eg28_check_it3(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
 	);
 }
 
-\\ L=  59, m= 17.0000, rho(3logs)=  6.5000, chi= 1.1000, K=  160446.094*logX,
-\\ nonDegen log|Lambda|>-1.771908 e7*logX, nonDegenNUB=1.771908 e7,
-\\ rho(2logs)= 7.000000, mu(2logs)= 0.610000, degenNUB1=    0.e-19, degenNUB2=1.754319 e7, degenNUB3=3.597471 e7,
-\\ nUB=1.771908 e7, eliminate-b2
-eg29_check_it3()={
-	my(bigL,chi,m,mu,nUB,rho2Logs,rho3Logs);
-
-	bigL=59;
-	m=17.0;
-	rho2Logs=7.0;
-	rho3Logs=6.5;
-	chi=1.1;
-	mu=0.61;
-	nUB=20*10^6;
-
-	actMinNUB=eg29_search_general(bigL,bigL,m,m,rho3Logs,rho3Logs,chi,chi,rho2Logs,rho2Logs,mu,mu,nUB,2);
-	expMinNUB=17.71908*10^6;
-	if(abs(actMinNUB/expMinNUB-1)>0.0001,
-		printf("FAIL: eg29_check_it3(), actMinNUB=%9.6e, expMinNUB=%9.6e\n",actMinNUB,expMinNUB);
-	);
-}
-
-eg29_search_it1(dbg=0)={
+eg28_search_it1(dbg=0)={
 	my(bigLLB,bigLUB,chiLB,chiUB,mLB,mUB,rho2LB,rho2UB,rho3LB,rho3UB);
 
 	bigLLB=50;
-	bigLUB=150;
-	mLB=7;
+	bigLUB=100;
+	mLB=5;
 	mUB=mLB+10;
 	rho3LB=5;
 	rho3UB=rho3LB+10;
@@ -88,30 +86,10 @@ eg29_search_it1(dbg=0)={
 	chiUB=chiLB+0.5;
 	rho2LB=6;
 	rho2UB=rho2LB+4;
-	eg29_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,,dbg);
+	eg28_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,,dbg);
 }
 
-eg29_search_it2(nUBInit,dbg=0)={
-	my(bigLLB,bigLUB,chiLB,chiUB,mLB,mUB,rho2LB,rho2UB,rho3LB,rho3UB);
-
-	if(nUBInit<0.00001,
-		printf("ERROR: nUBInit=%9.6f must be a positive real number\n",nUBInit);
-		return();
-	);
-	bigLLB=30;
-	bigLUB=150;
-	mLB=8;
-	mUB=mLB+10;
-	rho3LB=5;
-	rho3UB=rho3LB+10;
-	chiLB=0.7;
-	chiUB=chiLB+0.5;
-	rho2LB=5;
-	rho2UB=rho2LB+5;
-	eg29_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,nUBInit,dbg);
-}
-
-eg29_search_it3(nUBInit,dbg=0)={
+eg28_search_it2(nUBInit,dbg=0)={
 	my(bigLLB,bigLUB,chiLB,chiUB,mLB,mUB,rho2LB,rho2UB,rho3LB,rho3UB);
 
 	if(nUBInit<0.00001,
@@ -120,20 +98,40 @@ eg29_search_it3(nUBInit,dbg=0)={
 	);
 	bigLLB=30;
 	bigLUB=100;
-	mLB=8;
+	mLB=5;
 	mUB=mLB+10;
 	rho3LB=5;
 	rho3UB=rho3LB+10;
 	chiLB=0.7;
 	chiUB=chiLB+0.5;
-	rho2LB=5;
-	rho2UB=rho2LB+5;
-	eg29_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,nUBInit,dbg);
+	rho2LB=7;
+	rho2UB=rho2LB+4;
+	eg28_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,nUBInit,dbg);
+}
+
+eg28_search_it3(nUBInit,dbg=0)={
+	my(bigLLB,bigLUB,chiLB,chiUB,mLB,mUB,rho2LB,rho2UB,rho3LB,rho3UB);
+
+	if(nUBInit<0.00001,
+		printf("ERROR: nUBInit=%9.6f must be a positive real number\n",nUBInit);
+		return();
+	);
+	bigLLB=30;
+	bigLUB=80;
+	mLB=8;
+	mUB=mLB+5;
+	rho3LB=6;
+	rho3UB=rho3LB+5;
+	chiLB=1.05;
+	chiUB=chiLB+0.2;
+	rho2LB=7.0;
+	rho2UB=rho2LB+2;
+	eg28_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,,,nUBInit,dbg);
 }
 
 \\ only set muLB and muUB when using "check" functions above, not when using "search" functions
 \\ (they are bounds for the mu in Theorem 2 of Laurent's 2008 paper)
-eg29_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,muLB=0,muUB=0,nUBInit=0,dbg=0)={
+eg28_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,muLB=0,muUB=0,nUBInit=0,dbg=0)={
 	my(a1,a2,a3,absLogA1,absLogA2,absLogA3,al1,al2,al3,areBoundsOK,b1,b2,b3,bigD,bigK,chiStep,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logW,logXLB,matveevChi,minNUB,mStep,nDegenUB,nLB,nNonDegenUB,nUB,rho3Step,startTime,step3Result);
 
 	startTime=getwalltime();
@@ -146,23 +144,22 @@ eg29_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2U
 
 	al1=x; \\ x is just because it is not known.
 	al2=2;
-	al3=5;
+	al3=7;
 
 	b1=n;
 	b2=3; \\ alpha=1, 2 or 3
 	b3=n-1; \\ 0 \leq beta<n
-	nLB=10*10^6;
-	logXLB=log(nLB-2*sqrt(nLB)+1); \\ from Lemma 3.4 of Comp. Math. paper
-	
+	nLB=10*10^6; \\ assumption at the start of proof of Theorem 6.3
+	logXLB=nLB/3106.0-0.01; \\ from Lemma 3.4 of Comp. Math. paper
 	if(dbg>0,
 		printf("calced logXLB=%5d\n",logXLB);
 	);
 
 	hgtA1=logX;
-	absLogA1=log(5); \\ from Step 3 after defns of a_i's
+	absLogA1=log(7); \\ from Step 3 after defns of a_i's
 	hgtA2=log(2);
 	absLogA2=abs(log(al2));
-	hgtA3=log(5);
+	hgtA3=log(7);
 	absLogA3=abs(log(al3));
 	
 	\\ assume that we have log |\Lambda| <lamUB1*n+lamUB0
@@ -175,7 +172,7 @@ eg29_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2U
 		\\print("b1=",b1,", b2=",b2,b3,", logXLB=",logXLB,", nLB=",nLB,", lamUB1=",lamUB1,", lamUB0=",lamUB0,", dbg=",dbg);
 		nUBInit=get_matveev_ubnd(bigD,matveevChi,al1,absLogA1,hgtA1,al2,absLogA2,hgtA2,al3,absLogA3,hgtA3,b1,b2,b3,logXLB,nLB,lamUB1,lamUB0,dbg);
 		printf("nUBInit=%9.6e\n",nUBInit);
-		printf("eg29_search_general(): calculated nUBInit=%9.6e\n",nUBInit);
+		printf("eg28_search_general(): calculated nUBInit=%9.6e\n",nUBInit);
 	);
 	minNUB=nUBInit;
 	printf("used nUBInit=%9.6e\n",nUBInit);

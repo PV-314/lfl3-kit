@@ -8,7 +8,6 @@ read("lfl3\\kit-alpha1Variable.gp");
 \\ \Lambda = n \log (x/y)-\alpha \log(2)-\beta \log(5)
 \\ this example actually comes from equation (2.7) in Bennett, Gyory, Mignotte and Pinter
 \\ Comp. Math. (2006)
-\\ see the proof of their Prop 3.5.
 
 \\ L=  75, m=  7.5000, rho(3logs)= 10.5000, chi= 0.7750, K=  166371.103*logX,
 \\ nonDegen log|Lambda|>-2.934007 e7*logX, nonDegenNUB=2.934007 e7,
@@ -76,7 +75,6 @@ eg1_check_it3()={
 }
 
 eg1_search_it1(dbg=0)={
-my(a1,a2,a3,absLogA1,absLogA2,absLogA3,b1,b2,b3,bigD,bigK,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logW,logXLB,m,matveevChi,minNUB,nDegenUB,nLB,nNonDegenUB,nUB,rho,val,w);
 	my(bigLLB,bigLUB,chiLB,chiUB,mLB,mUB,rho2LB,rho2UB,rho3LB,rho3UB);
 
 	bigLLB=50;
@@ -134,7 +132,6 @@ eg1_search_it3(nUBInit,dbg=0)={
 
 \\ only set muLB and muUB when using "check" functions above, not when using "search" functions
 \\ (they are bounds for the mu in Theorem 2 of Laurent's 2008 paper)
-\\ 3 July 2022
 eg1_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2UB,muLB=0,muUB=0,nUBInit=0,dbg=0)={
 	my(a1,a2,a3,absLogA1,absLogA2,absLogA3,al1,al2,al3,areBoundsOK,b1,b2,b3,bigD,bigK,chiStep,d,hgtA1,hgtA2,hgtA3,lamUB0,lamUB1,logW,logXLB,matveevChi,minNUB,mStep,nDegenUB,nLB,nNonDegenUB,nUB,rho3Step,startTime,step3Result);
 
