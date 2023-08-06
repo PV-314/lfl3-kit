@@ -66,3 +66,10 @@ added new files, eg-bgmp-eqn28.gp and eg-bgmp-eqn210.gp, for equations (2.8) and
 renamed eg-mignotte1.gp to eg-bgmp-eqn27.gp for equation (2.7) in proof of
 Prop 3.5 of Bennett, Gyory, Mignotte and Pinter's Comp. Math (2006) paper.
 They are the same.
+
+2023-08-07
+==========
+added new file, eg-bdms.gp for Proposition 3.1
+of Bennett, Dahmen, Mignotte and Siksek's Math. Proc. Camb. Phil. Soc (2015) paper.
+
+changed format and output of a few print statements too.

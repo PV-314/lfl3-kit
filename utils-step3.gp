@@ -4,7 +4,6 @@ read("lfl3\\utils-general.gp");
 
 \\ returns 1 if the zero estimate conditions are satisfied
 \\ returns 0 otherwise
-\\ 26 Dec 2022
 check_zero_estimate(bigK,bigL,bigR1,bigR2,bigR3,bigS1,bigS2,bigS3,bigT1,bigT2,bigT3,chi,logXLB,areMultIndep,dbg=0)={
 	my(iLHS,iRHSa,iRHSb,iRHSc,iRHSd,iiLHS,iiRHS,iiiLHS,iiiRHS,ivLHS,ivRHS,rhsDeg,vLHS,vRHS);
 	
@@ -166,7 +165,7 @@ check_zero_estimate(bigK,bigL,bigR1,bigR2,bigR3,bigS1,bigS2,bigS3,bigT1,bigT2,bi
 get_eqn42(a1,a2,a3,bigK,bigL,bigR,bigS,bigT,d,rho,logBUB,nUB,logXLB,dbg=0)={
 	my(eqn42,eqn42LHS,eqn42Rem,eqn42RHS,eqn42RHS1,eqn42RHS2,eqn42RHS3,eqn42X0,eqn42X1,gDenom,gNumer);
 	
-	\\ miw matrix lhs with K_0=2(K-1):
+	\\ miw matrix lhs with K_0=K-1:
 	eqn42LHS=(bigK*bigL/2+bigL/2-0.37*bigK-2)*log(rho);
 
 	gDenom=12*bigR*bigS*bigT/logX/logX;
@@ -337,13 +336,13 @@ internal_get_logB1(bigR,bigT,b1,b3,d1,logXLB,nUB,dbg=0)={
 	logB1b=polcoef(logB1,0,logX);
 	logB1b=max(logB1b,0);
 	if(dbg>0,
-		printf("after substituting for n: b3'*eta_0 value=%s\n",logB1);
+		printf("after substituting nUB for n: b3'*eta_0 value<%s\n",logB1);
 		printf("        logX term  =%9.6e\n",logB1a);
 		printf("        const term =%9.6e\n",logB1b);
 	);
 	logB1=log(logB1a+logB1b/logXLB)+logLogX;
 	if(dbg>0,
-		printf("actual b3'*eta_0 value=%s\n",logB1);
+		printf("actual log(b3'*eta_0) value<%s\n",logB1);
 	);
 	return(logB1);
 }
@@ -393,13 +392,13 @@ internal_get_logB2(bigS,bigT,b2,b3,d2,logXLB,nUB,dbg=0)={
 	logB2b=polcoef(logB2,0,logX);
 	logB2b=max(logB2b,0);
 	if(dbg>0,
-		printf("after substituting for n: b3''*zeta_0 value=%s\n",logB2);
+		printf("after substituting nUB for n: b3''*zeta_0 value<%s\n",logB2);
 		printf("        logX term  =%9.6e\n",logB2a);
 		printf("        const term =%9.6e\n",logB2b);
 	);
 	logB2=log(logB2a+logB2b/logXLB)+logLogX;
 	if(dbg>0,
-		printf("actual b3''*zeta_0 value=%s\n",logB2);
+		printf("actual log(b3''*zeta_0) value<%s\n",logB2);
 	);
 	return(logB2);
 }

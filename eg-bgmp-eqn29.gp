@@ -155,7 +155,7 @@ eg29_search_general(bigLLB,bigLUB,mLB,mUB,rho3LB,rho3UB,chiLB,chiUB,rho2LB,rho2U
 	logXLB=log(nLB-2*sqrt(nLB)+1); \\ from Lemma 3.4 of Comp. Math. paper
 	
 	if(dbg>0,
-		printf("calced logXLB=%5d\n",logXLB);
+		printf("calced logXLB=%9.6f\n",logXLB);
 	);
 
 	hgtA1=logX;
