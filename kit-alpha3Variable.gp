@@ -105,7 +105,7 @@ alpha3_do_step3_calcs(d,al1Type,a1,absLogA1,hgtA1,al2Type,a2,absLogA2,hgtA2,al3T
 	);
 	bigK=(polcoef(bigK,1)+polcoef(bigK,0)/logXLB)*logX;
 	if(bigK==0,
-		printf("ERROR in alpha3_do_step3_calcs(): K=%s cannot be 0, L=%s, m=%s, a1=%s, a2=%s, a3=%s\n",bigK,m,a1,a2,a3,bigL);
+		printf("ERROR in alpha3_do_step3_calcs(): K=%s cannot be 0, L=%4d, m=%9.6f, a1=%s, a2=%s, a3=%s\n",bigK,bigL,m,a1,a2,a3);
 		error();
 	);
 	logLambdaLB=-bigK*bigL*log(rho);
@@ -164,7 +164,7 @@ alpha3_do_step3_calcs(d,al1Type,a1,absLogA1,hgtA1,al2Type,a2,absLogA2,hgtA2,al3T
 			return([bigK,bigR1,bigR2,bigS1,bigT1,bigT2,newNonDegenNUB]);
 		);
 		if(poldegree(logLambdaLB,logX)!=1 || polcoef(logLambdaLB,0)!=0,
-			print("BAD in alpha3_do_step3_calcs(): logLambdaLB must be of form c*logX, but="+logLambdaLB);
+			print("BAD in alpha3_do_step3_calcs(): logLambdaLB must be of form c*logX, but=",logLambdaLB);
 			return([]);
 		);
 	);

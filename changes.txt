@@ -73,3 +73,8 @@ added new file, eg-bdms.gp for Proposition 3.1
 of Bennett, Dahmen, Mignotte and Siksek's Math. Proc. Camb. Phil. Soc (2015) paper.
 
 changed format and output of a few print statements too.
+
+2023-12-29
+==========
+small improvements to a few print statements
+

@@ -226,7 +226,6 @@ get_eqn42(a1,a2,a3,bigK,bigL,bigR,bigS,bigT,d,rho,logBUB,nUB,logXLB,dbg=0)={
 
 \\ to save the same duplicated code.
 \\ it returns minResult
-\\          return([bigK,bigR1,bigR2,bigS1,bigT1,bigT2,newNonDegenNUB]);
 \\ recall that val=[bigK,bigR1,bigR2,bigS1,bigT1,bigT2,newNonDegenNUB] or else it is empty
 \\ also minResult=[minBigK, minBigL, minM, minRho, minChi, minBigR1, minBigR2, minBigS1, minBigT1, minBigT2, minNonDegenNUB]
 \\ 3 March 2022
