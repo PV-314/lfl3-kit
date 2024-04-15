@@ -78,3 +78,11 @@ changed format and output of a few print statements too.
 ==========
 small improvements to a few print statements
 
+2024-04-15
+==========
+corrected the lower bound for |\Lambda| in kit-alpha1Variable.gp and
+kit-alpha3Variable.gp. Was previously using the lower bound for |\Lambda'|.
+No material changes to the results in example files (differences in upper bounds
+typically like 10^{-5} roughly).
+
+
