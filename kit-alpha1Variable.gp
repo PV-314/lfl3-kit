@@ -36,7 +36,7 @@ alpha1_do_step3_with_d1d2(step3Result,d,al1,a1,absLogA1,hgtA1,al2,a2,absLogA2,hg
 \\ here we use knowledge of d1 and d2. Lower bounds for either of them can be used here
 \\ 29 June 2022
 alpha1_do_step3_calcs(d,al1Type,a1,absLogA1,hgtA1,al2Type,a2,absLogA2,hgtA2,al3Type,a3,absLogA3,hgtA3,b1,b2,b3,d1,d2,chi,bigL,m,rho,nUB,logXLB,nLB,lamUB1,lamUB0,dbg=0)={
-	my(a,aP,areMultIndep,bigK,bigR,bigR1,bigR2,bigR3,bigS,bigS1,bigS2,bigS3,bigT,bigT1,bigT2,bigT3,c1,c2,c3,chiV,chiVSqr,cM,eqn42,g,isComplex,isZeroEstOK,logBUB,logLambdaLB,rt,vSqr);
+	my(a,aP,areMultIndep,bigK,bigR,bigR1,bigR2,bigR3,bigS,bigS1,bigS2,bigS3,bigT,bigT1,bigT2,bigT3,c1,c2,c3,chiV,chiVSqr,cM,eqn42,g,isComplex,isZeroEstOK,lambdaFactor,logBUB,logLambdaLB,rt,vSqr);
 
 	if(al1Type!="t_POL",
 		error("ERROR in alpha1_do_step3_calcs(): al1Type=",al1Type," must be t_POL");
@@ -108,7 +108,12 @@ alpha1_do_step3_calcs(d,al1Type,a1,absLogA1,hgtA1,al2Type,a2,absLogA2,hgtA2,al3T
 		printf("ERROR in alpha1_do_step3_calcs(): K=%s cannot be 0, L=%4d, m=%9.6f, a1=%s, a2=%s, a3=%s\n",bigK,bigL,m,a1,a2,a3);
 		error();
 	);
-	logLambdaLB=-bigK*bigL*log(rho);
+	\\ use the expression of \Lambda' at the end of our Theorem 2.1
+	\\ if a*x*exp(a*x)>A, then log(x)>log(A)-log(a)-log(a*x).
+	\\ to be safe, we have a=L*max(R/2, S/2, T/2), x=\Lambda and assume that ax<1
+	lambdaFactor=bigL*max(max(subst(bigR,logX,logXLB)/2,subst(bigS,logX,logXLB)/2),subst(bigT,logX,logXLB)/2);
+	logLambdaLB=-bigK*bigL*log(rho)-log(lambdaFactor)/logXLB*logX-1;
+	logLambdaLB=subst(logLambdaLB,logX,logXLB)/logXLB*logX;
 	if(dbg>0,
 		printf("alpha1_do_step3_calcs(): nUB=%8.6e\n",nUB);
 		printf("bigR1=%8d\n",bigR1);
