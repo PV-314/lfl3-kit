@@ -67,8 +67,10 @@ The variables that need to be assigned values in egX_search_general() are:
 	\\ assume that we have log |\Lambda| <lamUB1*n+lamUB0
 	lamUB1,lamUB0
 
+VARIABLE NAMING CONVENTION:
 We assume that the quantity you are trying to bound from above with the kit is called n.
-We also assume that x is the non-constant alpha_i - this is important and used throughout.
+We also assume that x is the non-constant alpha_i.
+These two naming conventions are important and used throughout the code.
 Once again, just follow the examples.
 
 Start by writing and running egX_search_it1().
@@ -118,4 +120,5 @@ But the code will give you an error, if you use the incorrect one.
 CONTACT
 =======
 If you have any questions, problems, need a hand, find a bug,..., please contact PV
-you can find PV's details in the arxiv preprint for the kit.
+you can find PV's details in the arxiv preprint for the kit or in the published
+version in Math. Comp.
